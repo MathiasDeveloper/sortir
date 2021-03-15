@@ -3,12 +3,11 @@ security:
     providers:
         users_in_memory: { memory: null }
         app_user_provider:
-          entity:
-            class: App\Entity\Participant
-            property: username
-        encoders:
-          App\Entity\Participant:
-            algorithm: auto
+            id: App\Security\ParticipantProvider
+    encoders:
+      App\Entity\Participant:
+        algorithm: auto
+        cost: 12
 
     firewalls:
         dev:
