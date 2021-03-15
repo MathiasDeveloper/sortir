@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\CityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CityRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CityRepository::class)
@@ -78,7 +78,7 @@ class City
 
     public function addPlace(Place $place): self
     {
-        if (!$this->places->contains($place)) {
+        if (! $this->places->contains($place)) {
             $this->places[] = $place;
             $place->setCity($this);
         }

@@ -21,6 +21,12 @@ Download composer dependencies
 composer install ; npm i ; npm run dev
 ```
 
+Migrate database
+
+```bash
+php bin/console doctrine:migrations:migrate
+```
+
 Execute local server
 
 ```bash
@@ -44,3 +50,11 @@ npm run watch
 ## Tools
 
 - [**Tailwind CSS IntelliSense**](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss): intellisense for Tailwind CSS on VS Code
+
+### Merge from original repository
+
+```bash
+git remote add upstream git@github.com:MathiasDeveloper/sortir.git
+git fetch upstream
+git merge upstream/main
+```

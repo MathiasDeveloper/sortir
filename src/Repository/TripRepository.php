@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Trip;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Trip|null find($id, $lockMode = null, $lockVersion = null)

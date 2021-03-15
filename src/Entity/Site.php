@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SiteRepository;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=SiteRepository::class)
@@ -71,22 +71,22 @@ class Site
         return $this->trips;
     }
 
-    public function addTrips(Trip $trips): self
+    public function addTrip(Trip $trip): self
     {
-        if (!$this->trips->contains($trips)) {
-            $this->trips[] = $trips;
-            $trips->setSite($this);
+        if (! $this->trips->contains($trip)) {
+            $this->trips[] = $trip;
+            $trip->setSite($this);
         }
 
         return $this;
     }
 
-    public function removeTrips(Trip $trips): self
+    public function removeTrip(Trip $trip): self
     {
-        if ($this->trips->removeElement($trips)) {
+        if ($this->trips->removeElement($trip)) {
             // set the owning side to null (unless already changed)
-            if ($trips->getSite() === $this) {
-                $trips->setSite(null);
+            if ($trip->getSite() === $this) {
+                $trip->setSite(null);
             }
         }
 

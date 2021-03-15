@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\PlaceRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PlaceRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=PlaceRepository::class)
@@ -130,7 +130,7 @@ class Place
 
     public function addTrips(Trip $trips): self
     {
-        if (!$this->trips->contains($trips)) {
+        if (! $this->trips->contains($trips)) {
             $this->trips[] = $trips;
             $trips->setPlace($this);
         }

@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\StateRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use DemoBundle\Enum\StateTypeEnum;
+use App\Repository\StateRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=StateRepository::class)
@@ -46,6 +47,10 @@ class State
 
     public function setLabel(string $label): self
     {
+        if (! in_array($label, StateTypeEnum::getAvailableTypes())) {
+            throw new \InvalidArgumentException('Invalid type');
+        }
+
         $this->label = $label;
 
         return $this;
@@ -61,7 +66,7 @@ class State
 
     public function addTrip(Trip $trip): self
     {
-        if (!$this->trips->contains($trip)) {
+        if (! $this->trips->contains($trip)) {
             $this->trips[] = $trip;
             $trip->setState($this);
         }

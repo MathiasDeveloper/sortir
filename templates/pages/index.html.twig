@@ -1,6 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
-{% block title %}Sortir.com
+{% block title %}
+	Accueil
 {% endblock %}
 
 {% block body %}
@@ -8,31 +9,38 @@
 		<main class="lg:relative">
 			<div class="w-full pt-16 pb-20 mx-auto text-center max-w-7xl lg:py-48 lg:text-left">
 				<div class="px-4 lg:w-1/2 sm:px-8 xl:pr-16">
-					<h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-						<span class="block xl:inline">Data to enrich your</span>
-						<span class="block text-indigo-600 xl:inline">online business</span>
+					<h1 class="text-4xl font-extrabold tracking-tight text-gray-900 font-montserrat sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
+						<span class="block xl:inline">Bienvenue sur</span>
+						<span class="block text-red-600 xl:inline">sortir.com</span>
 					</h1>
-					<p class="max-w-md mx-auto mt-3 text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
-						Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
-					</p>
+					<div class="max-w-md mx-auto mt-3 text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
+						<p>
+							Né d'une idée révolutionnaire,
+							<b>sortir.com</b>
+							est l'aboutissement de centaines d'heures de travail pour vous offrir le meilleur du divertissement, créez vos propres sorties, rejoignez les groupes les plus tendances et faites de nouvelles rencontres.<br/>
+
+						</p>
+						<p class="mt-2">
+							<b>sortir.com</b>, la référence pour faire la fête jusqu'au bout de la nuit.
+						</p>
+					</div>
 					<div class="mt-10 sm:flex sm:justify-center lg:justify-start">
 						<div class="rounded-md shadow">
-							<a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
-								Get started
+							<a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 md:py-4 md:text-lg md:px-10">
+								M'inscrire
 							</a>
 						</div>
 						<div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-							<a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium text-indigo-600 bg-white border border-transparent rounded-md hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
-								Live demo
+							<a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium text-red-600 bg-white border border-transparent rounded-md hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+								Me connecter
 							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
-				<img class="absolute inset-0 object-cover w-full h-full" src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixqx=UbJG7I0AnK&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80" alt="">
+				<img class="absolute inset-0 object-cover w-full h-full" src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80" alt="">
 			</div>
 		</main>
 	</div>
-
 {% endblock %}
