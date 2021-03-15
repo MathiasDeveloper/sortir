@@ -25,7 +25,7 @@ class Place
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
+     * @ORM\Column(type="string", length=60, nullable=true)
      */
     private $street;
 

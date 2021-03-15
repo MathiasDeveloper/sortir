@@ -9,7 +9,6 @@ use App\Entity\Place;
 use App\Entity\State;
 use Cocur\Slugify\Slugify;
 use App\Entity\Participant;
-use App\Repository\CityRepository;
 use DemoBundle\Enum\StateTypeEnum;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,7 +60,7 @@ class AppFixtures extends Fixture
 
         // PLACES
         for ($i = 0; $i < 20; $i++) {
-            $cities = $this->entityManager->getRepository(CityRepository::class)->findAll();
+            $cities = $this->entityManager->getRepository(City::class)->findAll();
             shuffle($cities);
             $city = $cities[0];
 
@@ -88,22 +87,22 @@ class AppFixtures extends Fixture
         // STATES
         $state_created = new State();
         $state_created->setLabel(StateTypeEnum::TYPE_CREATED);
-        $manager->persist($place);
+        $manager->persist($state_created);
         $state_opened = new State();
         $state_opened->setLabel(StateTypeEnum::TYPE_OPENED);
-        $manager->persist($place);
+        $manager->persist($state_opened);
         $state_closed = new State();
         $state_closed->setLabel(StateTypeEnum::TYPE_CLOSED);
-        $manager->persist($place);
+        $manager->persist($state_closed);
         $state_ongoing = new State();
         $state_ongoing->setLabel(StateTypeEnum::TYPE_ONGOING);
-        $manager->persist($place);
+        $manager->persist($state_ongoing);
         $state_ended = new State();
         $state_ended->setLabel(StateTypeEnum::TYPE_ENDED);
-        $manager->persist($place);
+        $manager->persist($state_ended);
         $state_canceled = new State();
         $state_canceled->setLabel(StateTypeEnum::TYPE_CANCELED);
-        $manager->persist($place);
+        $manager->persist($state_canceled);
         $manager->flush();
     }
 }
