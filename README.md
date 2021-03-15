@@ -14,7 +14,7 @@
 Download composer dependencies
 
 ```bash
-composer install ; npm run dev
+composer install ; npm i ; npm run dev
 ```
 
 Execute local server
