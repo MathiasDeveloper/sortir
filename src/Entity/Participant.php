@@ -88,7 +88,6 @@ class Participant implements UserInterface
 
     public function __construct()
     {
-        $this->roles = ['ROLE_USER'];
         $this->site = new ArrayCollection();
         $this->subscriptions = new ArrayCollection();
         $this->trips = new ArrayCollection();
@@ -324,6 +323,11 @@ class Participant implements UserInterface
         }
 
         return array_unique($roles);
+    }
+
+    public function getCurrentRoles()
+    {
+        return $this->roles;
     }
 
     /**

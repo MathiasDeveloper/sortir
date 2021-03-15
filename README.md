@@ -64,3 +64,13 @@ git merge upstream/main
 ```bash
 php bin/console doctrine:schema:update --force ; php bin/console doctrine:migrations:migrate
 ```
+
+### PHP Lint
+
+```bash
+composer phpcs
+```
+
+```bash
+./vendor/bin/php-cs-fixer fix
+```
