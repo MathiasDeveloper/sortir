@@ -4,12 +4,12 @@ namespace DemoBundle\Enum;
 
 abstract class StateTypeEnum
 {
-    const TYPE_CREATED = 'CREATED';
-    const TYPE_OPENED = 'OPENED';
-    const TYPE_CLOSED = 'CLOSED';
-    const TYPE_ONGOING = 'ONGOING';
-    const TYPE_ENDED = 'ENDED';
-    const TYPE_CANCELED = 'CANCELED';
+    private const TYPE_CREATED = 'CREATED';
+    private const TYPE_OPENED = 'OPENED';
+    private const TYPE_CLOSED = 'CLOSED';
+    private const TYPE_ONGOING = 'ONGOING';
+    private const TYPE_ENDED = 'ENDED';
+    private const TYPE_CANCELED = 'CANCELED';
 
     /** @var array user friendly named type */
     protected static $typeName = [
