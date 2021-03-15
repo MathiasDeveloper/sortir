@@ -48,6 +48,8 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "phpstan/phpstan": "^0.12.81",
+        "squizlabs/php_codesniffer": "*",
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",
         "symfony/debug-bundle": "^5.2",
@@ -84,6 +86,8 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
+        "phpcs": "phpcs --standard=./phpcs.xml.dist",
+        "phpstan": "phpstan analyse src tests",
         "post-install-cmd": [
             "@auto-scripts"
         ],
