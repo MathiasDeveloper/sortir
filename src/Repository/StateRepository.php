@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\State;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method State|null find($id, $lockMode = null, $lockVersion = null)

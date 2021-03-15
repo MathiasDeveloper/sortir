@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\TripRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TripRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=TripRepository::class)
@@ -166,7 +166,7 @@ class Trip
 
     public function addSubscription(Participant $subscription): self
     {
-        if (!$this->subscriptions->contains($subscription)) {
+        if (! $this->subscriptions->contains($subscription)) {
             $this->subscriptions[] = $subscription;
         }
 

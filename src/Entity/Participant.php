@@ -2,27 +2,29 @@
 
 namespace App\Entity;
 
-use App\Repository\ParticipantRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ParticipantRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
  */
-class Participant
+class Participant implements UserInterface
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
-    private $nickname;
+    private string $username;
 
     /**
      * @ORM\Column(type="string", length=30)
@@ -35,19 +37,29 @@ class Participant
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=15, nullable=true)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=255)
      */
-    private $mail;
+    private string $email;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    private string $password;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $registrationDate;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private iterable $roles;
 
     /**
      * @ORM\Column(type="boolean")
@@ -74,9 +86,9 @@ class Participant
      */
     private $trips;
 
-
     public function __construct()
     {
+        $this->roles = ['ROLE_USER'];
         $this->site = new ArrayCollection();
         $this->subscriptions = new ArrayCollection();
         $this->trips = new ArrayCollection();
@@ -87,62 +99,26 @@ class Participant
         return $this->id;
     }
 
-    public function getNickname(): ?string
+    public function getUsername(): ?string
     {
-        return $this->nickname;
+        return $this->username;
     }
 
-    public function setNickname(string $nickname): self
+    public function setUsername(string $username): self
     {
-        $this->nickname = $nickname;
+        $this->username = $username;
 
         return $this;
     }
 
-    public function getLastname(): ?string
+    public function getEmail(): ?string
     {
-        return $this->lastname;
+        return $this->email;
     }
 
-    public function setLastname(string $lastname): self
+    public function setEmail(string $email): self
     {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(?string $phone): self
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getMail(): ?string
-    {
-        return $this->mail;
-    }
-
-    public function setMail(string $mail): self
-    {
-        $this->mail = $mail;
+        $this->email = $email;
 
         return $this;
     }
@@ -157,6 +133,59 @@ class Participant
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getRegistrationDate(): ?\DateTimeInterface
+    {
+        return $this->registrationDate;
+    }
+
+    public function setRegistrationDate(\DateTimeInterface $registrationDate): self
+    {
+        $this->registrationDate = $registrationDate;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstname(): string
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param string $firstname
+     */
+    public function setFirstname(string $firstname): void
+    {
+        $this->firstname = $firstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastname(): string
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param string $lastname
+     */
+    public function setLastname(string $lastname): void
+    {
+        $this->lastname = $lastname;
+    }
+
+    public function getSalt()
+    {
+    }
+
+    public function eraseCredentials()
+    {
+        // $this->password = '';
     }
 
     public function getAdministrator(): ?bool
@@ -193,7 +222,7 @@ class Participant
 
     public function addSite(Site $site): self
     {
-        if (!$this->site->contains($site)) {
+        if (! $this->site->contains($site)) {
             $this->site[] = $site;
             $site->setParticipant($this);
         }
@@ -223,7 +252,7 @@ class Participant
 
     public function addSubscription(Trip $subscription): self
     {
-        if (!$this->subscriptions->contains($subscription)) {
+        if (! $this->subscriptions->contains($subscription)) {
             $this->subscriptions[] = $subscription;
             $subscription->addSubscription($this);
         }
@@ -250,7 +279,7 @@ class Participant
 
     public function addTrip(Trip $trip): self
     {
-        if (!$this->trips->contains($trip)) {
+        if (! $this->trips->contains($trip)) {
             $this->trips[] = $trip;
             $trip->setOrganisor($this);
         }
@@ -270,16 +299,38 @@ class Participant
         return $this;
     }
 
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
     /**
-     * For authent
+     * For authent.
+     *
      * @return array
      */
     public function getRoles(): array
     {
         $roles[] = 'ROLE_USER';
-        if($this->getAdministrator()){
+        if ($this->getAdministrator()) {
             $roles[] = 'ROLE_ADMIN';
         }
+
         return array_unique($roles);
+    }
+
+    /**
+     * @param array|iterable $roles
+     */
+    public function setRoles(iterable $roles): void
+    {
+        $this->roles = $roles;
     }
 }
