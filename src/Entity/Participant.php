@@ -147,19 +147,6 @@ class Participant implements UserInterface
         return $this;
     }
 
-    public function getRoles(): iterable
-    {
-        return $this->roles;
-    }
-
-    /**
-     * @param array|iterable $roles
-     */
-    public function setRoles(iterable $roles): void
-    {
-        $this->roles = $roles;
-    }
-
     /**
      * @return string
      */
@@ -322,5 +309,28 @@ class Participant implements UserInterface
         $this->phone = $phone;
 
         return $this;
+    }
+
+    /**
+     * For authent.
+     *
+     * @return array
+     */
+    public function getRoles(): array
+    {
+        $roles[] = 'ROLE_USER';
+        if ($this->getAdministrator()) {
+            $roles[] = 'ROLE_ADMIN';
+        }
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param array|iterable $roles
+     */
+    public function setRoles(iterable $roles): void
+    {
+        $this->roles = $roles;
     }
 }
