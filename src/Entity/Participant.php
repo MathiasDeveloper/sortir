@@ -269,4 +269,17 @@ class Participant
 
         return $this;
     }
+
+    /**
+     * For authent
+     * @return array
+     */
+    public function getRoles(): array
+    {
+        $roles[] = 'ROLE_USER';
+        if($this->getAdministrator()){
+            $roles[] = 'ROLE_ADMIN';
+        }
+        return array_unique($roles);
+    }
 }
