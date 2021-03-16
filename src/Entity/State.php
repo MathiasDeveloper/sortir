@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
+use App\Enum\StateTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
-use DemoBundle\Enum\StateTypeEnum;
 use App\Repository\StateRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
