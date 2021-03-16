@@ -53,7 +53,7 @@ class TripFixtures extends Fixture implements DependentFixtureInterface
             $trip->setName($faker->words(2, true));
             $trip->setBeginDate($beginDate);
             $trip->setEndDate($endDate);
-            $trip->setDuration($faker->numberBetween(10, 100));
+            $trip->setDuration($faker->dateTime());
             $trip->setMaxSubscriptions($faker->numberBetween(2, 20));
             $trip->setDescription($faker->paragraphs($faker->numberBetween(2, 6), true));
             $trip->setOrganisor($organiser);
