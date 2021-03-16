@@ -24,10 +24,9 @@ class Site
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="site")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="site", orphanRemoval=true)
      */
-    private $participant;
+    private $participants;
 
     /**
      * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="place")
@@ -51,14 +50,32 @@ class Site
         return $this;
     }
 
-    public function getParticipant(): ?Participant
+    /**
+     * @return Collection|Participant[]
+     */
+    public function getParticipants(): Collection
     {
-        return $this->participant;
+        return $this->participants;
     }
 
-    public function setParticipant(?Participant $participant): self
+    public function addParticipant(Participant $participant): self
     {
-        $this->participant = $participant;
+        if (! $this->participant->contains($participant)) {
+            $this->participant[] = $participant;
+            $participant->setSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participant $participant): self
+    {
+        if ($this->participant->removeElement($participant)) {
+            // set the owning side to null (unless already changed)
+            if ($participant->getSite() === $this) {
+                $participant->setSite(null);
+            }
+        }
 
         return $this;
     }

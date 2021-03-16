@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\StateTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TripRepository;
 use Doctrine\Common\Collections\Collection;
@@ -60,17 +61,17 @@ class Trip
     private $place;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="organisor")
+     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="trips")
      */
     private $organisor;
 
     /**
-     * @ORM\ManyToOne(targetEntity=State::class, inversedBy="trips")
+     * @ORM\Column(type="string", length=255)
      */
     private $state;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="participant")
+     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="participants")
      */
     private $site;
 
@@ -204,13 +205,17 @@ class Trip
         return $this;
     }
 
-    public function getState(): ?State
+    public function getState(): ?string
     {
-        return $this->state;
+        return StateTypeEnum::getTypeName($this->state);
     }
 
-    public function setState(?State $state): self
+    public function setState(string $state): self
     {
+        if (! in_array($state, StateTypeEnum::getAvailableTypes())) {
+            throw new \InvalidArgumentException('Invalid type');
+        }
+
         $this->state = $state;
 
         return $this;
