@@ -90,6 +90,7 @@
         },
         "phpcs": "phpcs --standard=./phpcs.xml.dist",
         "phpstan": "phpstan analyse src tests",
+        "tests" : "simple-phpunit tests/",
         "post-install-cmd": [
             "@auto-scripts"
         ],
