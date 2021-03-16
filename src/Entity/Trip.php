@@ -31,7 +31,7 @@ class Trip
     private $begin_date;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="time", nullable=true)
      */
     private $duration;
 
@@ -109,12 +109,12 @@ class Trip
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): ?\DateTimeInterface
     {
         return $this->duration;
     }
 
-    public function setDuration(?int $duration): self
+    public function setDuration(\DateTimeInterface $duration): self
     {
         $this->duration = $duration;
 
