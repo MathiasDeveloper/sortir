@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\StateTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TripRepository;
 use Doctrine\Common\Collections\Collection;
@@ -65,7 +66,7 @@ class Trip
     private $organisor;
 
     /**
-     * @ORM\ManyToOne(targetEntity=State::class, inversedBy="trips")
+     * @ORM\Column(type="string", length=255)
      */
     private $state;
 
@@ -204,14 +205,18 @@ class Trip
         return $this;
     }
 
-    public function getState(): ?State
+    public function getLabel(): ?string
     {
-        return $this->state;
+        return $this->label;
     }
 
-    public function setState(?State $state): self
+    public function setLabel(string $label): self
     {
-        $this->state = $state;
+        if (! in_array($label, StateTypeEnum::getAvailableTypes())) {
+            throw new \InvalidArgumentException('Invalid type');
+        }
+
+        $this->label = $label;
 
         return $this;
     }
