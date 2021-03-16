@@ -15,6 +15,25 @@
 
 ## Setup
 
+**Link for get Symfony CLI**
+
+MACOS : 
+```bash
+curl -sS https://get.symfony.com/cli/installer | bash
+```
+
+LINUX :
+
+```bash
+wget https://get.symfony.com/cli/installer -O - | bash
+```
+
+WINDOWS :
+
+[Downloads exe](https://symfony.com/download)
+
+---
+
 Download composer dependencies
 
 ```bash
@@ -40,11 +59,16 @@ Get info about project
 ```bash
 php bin/console about
 ```
-
-Watch on NPM
+if use Symfony CLI
 
 ```bash
-npm run watch
+symfony console about
+```
+
+Build webpack
+
+```bash
+npm run watch; npm run dev; npm run build;
 ```
 
 ## Tools
@@ -74,3 +98,10 @@ composer phpcs
 ```bash
 ./vendor/bin/php-cs-fixer fix
 ```
+
+### PHPstan
+
+```bash
+composer phpstan
+```
+
