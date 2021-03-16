@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block Title %}
+Trips
+{% endblock %}
+
+{% block body %}
+    <table>
+        <th><a href="{{ path('newTrip') }}">creer</a></th>
+        <th>modifier</th>
+        <th>supprimer</th>
+    </table>
+{% endblock %}
