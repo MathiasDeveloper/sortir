@@ -72,7 +72,7 @@ class Participant implements UserInterface
     private $active;
 
     /**
-     * @ORM\OneToMany(targetEntity=Site::class, mappedBy="participant", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="participants")
      */
     private $site;
 
@@ -88,7 +88,6 @@ class Participant implements UserInterface
 
     public function __construct()
     {
-        $this->site = new ArrayCollection();
         $this->subscriptions = new ArrayCollection();
         $this->trips = new ArrayCollection();
     }
@@ -211,32 +210,14 @@ class Participant implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Site[]
-     */
-    public function getSite(): Collection
+    public function getSite(): ?Site
     {
         return $this->site;
     }
 
-    public function addSite(Site $site): self
+    public function setSite(?Site $site): self
     {
-        if (! $this->site->contains($site)) {
-            $this->site[] = $site;
-            $site->setParticipant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSite(Site $site): self
-    {
-        if ($this->site->removeElement($site)) {
-            // set the owning side to null (unless already changed)
-            if ($site->getParticipant() === $this) {
-                $site->setParticipant(null);
-            }
-        }
+        $this->site = $site;
 
         return $this;
     }

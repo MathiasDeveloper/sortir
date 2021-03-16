@@ -61,7 +61,7 @@ class Trip
     private $place;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="organisor")
+     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="trips")
      */
     private $organisor;
 
@@ -71,7 +71,7 @@ class Trip
     private $state;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="participant")
+     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="participants")
      */
     private $site;
 
@@ -205,18 +205,18 @@ class Trip
         return $this;
     }
 
-    public function getLabel(): ?string
+    public function getState(): ?string
     {
-        return $this->label;
+        return StateTypeEnum::getTypeName($this->state);
     }
 
-    public function setLabel(string $label): self
+    public function setState(string $state): self
     {
-        if (! in_array($label, StateTypeEnum::getAvailableTypes())) {
+        if (! in_array($state, StateTypeEnum::getAvailableTypes())) {
             throw new \InvalidArgumentException('Invalid type');
         }
 
-        $this->label = $label;
+        $this->state = $state;
 
         return $this;
     }
