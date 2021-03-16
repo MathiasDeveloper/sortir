@@ -110,6 +110,14 @@ git merge upstream/main
 ### II. c. Entities modification
 
 ```bash
+php bin/console make:migration
+```
+
+```bash
+php bin/console doctrine:schema:validate
+```
+
+```bash
 php bin/console doctrine:schema:update --force ; php bin/console doctrine:migrations:migrate
 ```
 
