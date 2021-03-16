@@ -1,6 +1,6 @@
 <?php
 
-namespace DemoBundle\Enum;
+namespace App\Enum;
 
 abstract class StateTypeEnum
 {
