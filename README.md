@@ -1,4 +1,4 @@
-# Sortir.com - ENI project
+# Sortir.com - ENI project <!-- omit in toc -->
 
 [![php](https://img.shields.io/static/v1?label=PHP&message=v7.4&color=777bb4&style=flat-square&logo=php&logoColor=ffffff)](https://www.php.net)
 [![composer](https://img.shields.io/static/v1?label=Composer&message=v2.0&color=885630&style=flat-square&logo=composer&logoColor=ffffff)](https://getcomposer.org)
@@ -8,6 +8,16 @@
 [![symfony-cli](https://img.shields.io/static/v1?label=Symfony%20CLI&message=v4.23&color=000000&style=flat-square&logo=symfony&logoColor=ffffff)](https://symfony.com/download)
 
 [![tailwind](https://img.shields.io/static/v1?label=Tailwind%20CSS&message=v2.0&color=38B2AC&style=flat-square&logo=tailwind-css&logoColor=ffffff)](https://tailwindcss.com)
+
+- [Links](#links)
+- [I. Setup](#i-setup)
+  - [I. a. More](#i-a-more)
+- [II. Tools](#ii-tools)
+  - [II. a. Install Symfony CLI](#ii-a-install-symfony-cli)
+  - [II. b. Merge from original repository](#ii-b-merge-from-original-repository)
+  - [II. c. Entities modification](#ii-c-entities-modification)
+  - [II. d. PHP Lint](#ii-d-php-lint)
+  - [II. e. PHPstan](#ii-e-phpstan)
 
 ## Links
 
@@ -21,26 +31,7 @@
   - [SortiesDesktop](https://drive.google.com/file/d/18MFFSH4v3AcdpCw-rArNVaNX5upjOeO9/view?usp=sharing)
   - [SortiesSmartphone](https://drive.google.com/file/d/1flaWmtIMdJw1qO2YJcEZv4HUNZKcahAv/view?usp=sharing)
 
-## Setup
-
-**Link for get Symfony CLI**
-
-MACOS : 
-```bash
-curl -sS https://get.symfony.com/cli/installer | bash
-```
-
-LINUX :
-
-```bash
-wget https://get.symfony.com/cli/installer -O - | bash
-```
-
-WINDOWS :
-
-[Downloads exe](https://symfony.com/download)
-
----
+## I. Setup
 
 Download composer dependencies
 
@@ -60,13 +51,14 @@ Execute local server
 symfony server:start
 ```
 
-### More
+### I. a. More
 
 Get info about project
 
 ```bash
 php bin/console about
 ```
+
 if use Symfony CLI
 
 ```bash
@@ -79,11 +71,35 @@ Build webpack
 npm run watch; npm run dev; npm run build;
 ```
 
-## Tools
+## II. Tools
 
 - [**Tailwind CSS IntelliSense**](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss): intellisense for Tailwind CSS on VS Code
 
-### Merge from original repository
+### II. a. Install Symfony CLI
+
+MACOS :
+
+```bash
+curl -sS https://get.symfony.com/cli/installer | bash
+```
+
+LINUX :
+
+```bash
+wget https://get.symfony.com/cli/installer -O - | bash
+```
+
+WINDOWS :
+
+[Downloads exe](https://symfony.com/download)
+
+**OR**
+
+```ps1
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh') ; scoop install symfony-cli
+```
+
+### II. b. Merge from original repository
 
 ```bash
 git remote add upstream git@github.com:MathiasDeveloper/sortir.git
@@ -91,13 +107,13 @@ git fetch upstream
 git merge upstream/main
 ```
 
-### Entities modification
+### II. c. Entities modification
 
 ```bash
 php bin/console doctrine:schema:update --force ; php bin/console doctrine:migrations:migrate
 ```
 
-### PHP Lint
+### II. d. PHP Lint
 
 ```bash
 composer phpcs
@@ -107,9 +123,8 @@ composer phpcs
 ./vendor/bin/php-cs-fixer fix
 ```
 
-### PHPstan
+### II. e. PHPstan
 
 ```bash
 composer phpstan
 ```
-
