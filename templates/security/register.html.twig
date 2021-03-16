@@ -1,0 +1,65 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}
+	Inscription
+{% endblock %}
+
+{% block body %}
+	<div class="flex flex-col justify-center py-12 pt-32 pb-16 bg-gray-50 sm:px-6 lg:px-8">
+		<div class="sm:mx-auto sm:w-full sm:max-w-md">
+			<img class="w-auto h-12 mx-auto" src="{{ asset('images/logo.svg') }}" alt="Workflow">
+			<h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900 font-montserrat">
+				Inscription
+			</h2>
+		</div>
+
+		<div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+			<div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+				<form class="space-y-6" method="post">
+					{% if error %}
+						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+					{% endif %}
+
+					<div class="text-9xl">
+						TODO
+					</div>
+					<div>
+						{{ form(form) }}
+					</div>
+					<div>
+						<label for="email" class="block text-sm font-medium text-gray-700">
+							Pseudo
+						</label>
+						<div class="mt-1">
+							<input value="{{ last_username }}" name="username" id="inputUsername" type="text" autocomplete="username" required class="input-text" required autofocus>
+						</div>
+					</div>
+
+					<div>
+						<label for="password" class="block text-sm font-medium text-gray-700">
+							Mot de passe
+						</label>
+						<div class="mt-1">
+							<input name="password" id="inputPassword" type="password" autocomplete="current-password" required class="input-text">
+						</div>
+					</div>
+
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+					<div class="flex items-center justify-between">
+						<div class="flex items-center">
+							<input type="checkbox" id="remember_me" name="_remember_me" class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500" />
+							<label for="remember_me" class="block ml-2 text-sm text-gray-900">Se souvenir de moi</label>
+						</div>
+					</div>
+
+					<div>
+						<button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+							Connexion
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
