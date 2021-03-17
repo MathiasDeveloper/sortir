@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Trip;
+use App\Form\TripForm;
+use App\Enums\StateTypeEnum;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Omines\DataTablesBundle\Column\TextColumn;
@@ -16,9 +19,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TripController extends AbstractController
 {
     /**
-     * @Route("/sorties", name="trip_index")
+     * @Route("/sorties", name="trip_filter")
      */
-    public function index(Request $request, DataTableFactory $dataTableFactory): Response
+    public function filter(Request $request, DataTableFactory $dataTableFactory): Response
     {
         $tripsTable = $dataTableFactory->create()
             ->add('name', TextColumn::class, [
@@ -49,5 +52,56 @@ class TripController extends AbstractController
         return $this->render('pages/trips/index.html.twig', [
             'datatable' => $tripsTable,
         ]);
+    }
+
+    /**
+     * @Route("/trip", name="trip")
+     */
+    public function index(): Response
+    {
+        return $this->render(
+            '/pages/trip/index.html.twig',
+            [
+                'controller_name' => 'TripController',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/trip/new", name="newTrip")
+     *
+     * @param Request                $request
+     * @param EntityManagerInterface $entityManager
+     *
+     * @return Response
+     */
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(TripForm::class);
+
+        $form->handleRequest($request);
+
+        $states = StateTypeEnum::getAvailableTypes();
+        $state = $states[0];
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (array_key_exists('send', $request->request->get('trip_form'))) {
+                $state = $states[1];
+            }
+
+            /** @var Trip $trip */
+            $trip = $form->getData();
+
+            $trip->setState($state);
+            $entityManager->persist($trip);
+            $entityManager->flush();
+        }
+
+        return $this->render(
+            '/pages/trip/new.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 }

@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TripRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass=TripRepository::class)
@@ -22,11 +24,13 @@ class Trip
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
      */
     private $begin_date;
 
@@ -42,6 +46,7 @@ class Trip
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $max_subscriptions;
 
@@ -52,11 +57,13 @@ class Trip
 
     /**
      * @ORM\ManyToMany(targetEntity=Participant::class, inversedBy="subscriptions")
+     * @Assert\NotBlank
      */
     private $subscriptions;
 
     /**
      * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="trips")
+     * @Assert\NotBlank
      */
     private $place;
 
@@ -231,5 +238,19 @@ class Trip
         $this->site = $site;
 
         return $this;
+    }
+
+    /**
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     * @param $payload
+     */
+    public function validateDate(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->begin_date > $this->end_date) {
+            $context->buildViolation('Start date must be earlier than end date')
+                ->atPath('startDate')
+                ->addViolation();
+        }
     }
 }
