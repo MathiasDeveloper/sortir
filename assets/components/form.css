@@ -1,0 +1,9 @@
+.label {
+    @apply block text-sm font-medium text-gray-700;
+}
+.input-text {
+    @apply block w-full border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm;
+}
+.input-textarea {
+    @apply block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50;
+}
