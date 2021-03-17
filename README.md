@@ -11,7 +11,8 @@
 
 - [Links](#links)
 - [I. Setup](#i-setup)
-  - [I. a. More](#i-a-more)
+  - [Local](#local)
+  - [Production](#production)
 - [II. Tools](#ii-tools)
   - [II. a. Install Symfony CLI](#ii-a-install-symfony-cli)
   - [II. b. Merge from original repository](#ii-b-merge-from-original-repository)
@@ -33,6 +34,8 @@
 
 ## I. Setup
 
+### Local
+
 Download composer dependencies
 
 ```bash
@@ -51,7 +54,17 @@ Execute local server
 symfony server:start
 ```
 
-### I. a. More
+### Production
+
+Build webpack
+
+```bash
+npm run build
+```
+
+## II. Tools
+
+- [**Tailwind CSS IntelliSense**](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss): intellisense for Tailwind CSS on VS Code
 
 Get info about project
 
@@ -64,16 +77,6 @@ if use Symfony CLI
 ```bash
 symfony console about
 ```
-
-Build webpack
-
-```bash
-npm run watch; npm run dev; npm run build;
-```
-
-## II. Tools
-
-- [**Tailwind CSS IntelliSense**](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss): intellisense for Tailwind CSS on VS Code
 
 ### II. a. Install Symfony CLI
 
