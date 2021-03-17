@@ -23,11 +23,11 @@
 				<div
 					class="hidden sm:ml-6 sm:flex sm:space-x-8">
 					<!-- Current: "border-red-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-					<a href="#" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-red-500">
+					<a href="/" class="inline-flex items-center px-1 pt-1 text-sm  {% if app.request.attributes.get('_route') == 'welcome' %}font-medium text-gray-900 border-b-2 border-red-500{% endif %}">
 						Dashboard
 					</a>
-					<a href="#" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
-						Team
+					<a href="{{ path('trip') }}" class="{% if app.request.attributes.get('_route') == 'trip' %}font-medium  text-gray-900  border-b-2 border-red-500{% endif %} inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
+						Trips
 					</a>
 					<a href="#" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
 						Projects
@@ -51,16 +51,15 @@
 						</div>
 						<div id="profileDropdownMenu" class="absolute right-0 hidden w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
 							<a href="{{ path('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-								Votre profil
+                                {% trans %}Your profil{% endtrans %}
 							</a>
 							<a href="{{ path('app_logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-								Déconnexion
+                                {% trans %}Disconnect{% endtrans %}
 							</a>
 						</div>
 					</div>
 				</div>
 			{% endif %}
-
 		</div>
 	</div>
 
