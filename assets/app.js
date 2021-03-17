@@ -10,7 +10,8 @@ import "./styles/app.css";
 import "./styles/extras.css";
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-import $ from "jquery";
+// import $ from "jquery";
+// import datatable from "datatables";
 
 // Profile dropdown
 let profileDropdownButton = document.getElementById("profileDropdownButton");
