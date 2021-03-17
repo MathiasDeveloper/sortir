@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Enum\StateTypeEnum;
+use App\Enums\StateTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TripRepository;
 use Doctrine\Common\Collections\Collection;
