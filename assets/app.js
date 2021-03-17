@@ -12,13 +12,10 @@ import "./styles/extras.css";
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from "jquery";
 
-console.log("Hello Webpack Encore! Edit me in assets/app.js");
-
+// Profile dropdown
 let profileDropdownButton = document.getElementById("profileDropdownButton");
 let profileDropdownMenu = document.getElementById("profileDropdownMenu");
 let profileDropdown = document.getElementById("profileDropdown");
-let mobileMenu = document.getElementById("mobile-menu");
-let mobileMenuButton = document.getElementById("mobile-menu-button");
 
 profileDropdownButton.addEventListener("click", profileDropdownToggle);
 function profileDropdownToggle() {
@@ -32,6 +29,10 @@ document.addEventListener("click", function (event) {
     profileDropdownMenu.classList.add("hidden");
   }
 });
+
+// Mobile menu
+let mobileMenu = document.getElementById("mobile-menu");
+let mobileMenuButton = document.getElementById("mobile-menu-button");
 
 mobileMenuButton.addEventListener("click", mobileMenuToggle);
 function mobileMenuToggle() {
