@@ -1,13 +1,16 @@
 {% extends 'layouts/base.html.twig' %}
 
 {% block Title %}
-Trips
+    Trips
 {% endblock %}
 
 {% block body %}
-    <table>
-        <th><a href="{{ path('newTrip') }}">creer</a></th>
-        <th>modifier</th>
-        <th>supprimer</th>
-    </table>
+    <div class="pt-20">
+        <h1 class="text-black">Sorties</h1>
+        <table>
+            <th><a href="{{ path('newTrip') }}">creer</a></th>
+            <th>modifier</th>
+            <th>supprimer</th>
+        </table>
+    </div>
 {% endblock %}

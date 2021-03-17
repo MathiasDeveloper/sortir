@@ -42,11 +42,9 @@ class TripController extends AbstractController
         $states = StateTypeEnum::getAvailableTypes();
         $state = $states[0];
 
-
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // TODO : get send or save for change state
-            if ($request->get('send')) {
+            if (array_key_exists('send', $request->request->get('trip_form'))) {
                 $state = $states[1];
             }
 

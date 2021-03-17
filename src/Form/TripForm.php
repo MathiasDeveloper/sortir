@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -57,10 +58,16 @@ class TripForm extends AbstractType
                     'label' => 'Duration'
                 ]
             )
-            ->add('max_subscriptions', NumberType::class)
+            ->add('max_subscriptions', IntegerType::class)
             ->add('description', TextType::class)
-            ->add('save', SubmitType::class)
-            ->add('send', SubmitType::class)
+            ->add(
+                'save',
+                SubmitType::class
+            )
+            ->add(
+                'send',
+                SubmitType::class
+            )
             ->add(
                 'place',
                 ChoiceType::class,
