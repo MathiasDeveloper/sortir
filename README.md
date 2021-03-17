@@ -42,7 +42,16 @@ Download composer dependencies
 composer install ; npm i ; npm run dev
 ```
 
+If you want to compile CSS and JS in live
+
+```bash
+npm run watch
+```
+
 Migrate database
+> Migrate new migrations, fixtures for data  
+> If you have any error, it's often about current data which not compatible with new migration  
+> Truncate table where you have errors
 
 ```bash
 php bin/console doctrine:migrations:migrate ; php bin/console doctrine:fixtures:load
@@ -112,13 +121,26 @@ git merge upstream/main
 
 ### II. c. Entities modification
 
+Make new migration file from entities modifications
+
 ```bash
 php bin/console make:migration
 ```
 
+Check if entities are valid
+
 ```bash
 php bin/console doctrine:schema:validate
 ```
+
+Launch new migrations
+> If current data are not compatible with changements, you will have some errors, try to truncate tables
+
+```bash
+php bin/console doctrine:migrations:migrate
+```
+
+Update database with entities modifications and migrate
 
 ```bash
 php bin/console doctrine:schema:update --force ; php bin/console doctrine:migrations:migrate
