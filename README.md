@@ -11,7 +11,8 @@
 
 - [Links](#links)
 - [I. Setup](#i-setup)
-  - [I. a. More](#i-a-more)
+  - [Local](#local)
+  - [Production](#production)
 - [II. Tools](#ii-tools)
   - [II. a. Install Symfony CLI](#ii-a-install-symfony-cli)
   - [II. b. Merge from original repository](#ii-b-merge-from-original-repository)
@@ -33,13 +34,24 @@
 
 ## I. Setup
 
+### Local
+
 Download composer dependencies
 
 ```bash
 composer install ; npm i ; npm run dev
 ```
 
+If you want to compile CSS and JS in live
+
+```bash
+npm run watch
+```
+
 Migrate database
+> Migrate new migrations, fixtures for data  
+> If you have any error, it's often about current data which not compatible with new migration  
+> Truncate table where you have errors
 
 ```bash
 php bin/console doctrine:migrations:migrate ; php bin/console doctrine:fixtures:load
@@ -51,7 +63,17 @@ Execute local server
 symfony server:start
 ```
 
-### I. a. More
+### Production
+
+Build webpack
+
+```bash
+npm run build
+```
+
+## II. Tools
+
+- [**Tailwind CSS IntelliSense**](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss): intellisense for Tailwind CSS on VS Code
 
 Get info about project
 
@@ -64,16 +86,6 @@ if use Symfony CLI
 ```bash
 symfony console about
 ```
-
-Build webpack
-
-```bash
-npm run watch; npm run dev; npm run build;
-```
-
-## II. Tools
-
-- [**Tailwind CSS IntelliSense**](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss): intellisense for Tailwind CSS on VS Code
 
 ### II. a. Install Symfony CLI
 
@@ -109,13 +121,26 @@ git merge upstream/main
 
 ### II. c. Entities modification
 
+Make new migration file from entities modifications
+
 ```bash
 php bin/console make:migration
 ```
 
+Check if entities are valid
+
 ```bash
 php bin/console doctrine:schema:validate
 ```
+
+Launch new migrations
+> If current data are not compatible with changements, you will have some errors, try to truncate tables
+
+```bash
+php bin/console doctrine:migrations:migrate
+```
+
+Update database with entities modifications and migrate
 
 ```bash
 php bin/console doctrine:schema:update --force ; php bin/console doctrine:migrations:migrate

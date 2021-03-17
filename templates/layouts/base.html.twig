@@ -17,11 +17,18 @@
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 	</head>
 	<body>
+		{% set current_path = app.request.get('_route') %}
 		{% include "components/navbar.html.twig" %}
-		{% block body %}{% endblock %}
-		{% include "components/footer.html.twig" %}
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
-	</body>
-</html>
+		<div class="{{ current_path != 'welcome' ? 'content' :'' }}"> {% block body %}{% endblock %}
+			</div>
+			{% if current_path != 'welcome' %}
+				<div class="footer">
+					{% include "components/footer.html.twig" %}
+				</div>
+			{% endif %}
+
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+			{% endblock %}
+		</body>
+	</html>
