@@ -7,7 +7,7 @@ use App\Entity\Site;
 use App\Entity\Trip;
 use App\Entity\Place;
 use App\Entity\Participant;
-use App\Enum\StateTypeEnum;
+use App\Enums\StateTypeEnum;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
