@@ -2,7 +2,7 @@
 
 When you develop on app, you need to use phpunit for create test suite.
 
-## Configation 
+## Configuration 
 
 ### Units tests
 For test unit you can find a directory :
