@@ -242,6 +242,7 @@ class Trip
 
     /**
      * @Assert\Callback
+     *
      * @param ExecutionContextInterface $context
      * @param $payload
      */

@@ -48,7 +48,8 @@ class TripFixtures extends Fixture implements DependentFixtureInterface
             shuffle($participants);
 
             $beginDate = $faker->dateTimeBetween('-1 week', '+1 week');
-            $endDate = $beginDate->modify('+5 week');
+            $endDate = $faker->dateTimeBetween('+3 week', '+4 week');
+
             $trip = new Trip();
             $trip->setName($faker->words(2, true));
             $trip->setBeginDate($beginDate);
