@@ -6,9 +6,12 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Entity\Trip;
+use App\Enums\StateTypeEnum;
 use App\Exception\InvalidArgumentException;
 use App\Services\Trip\Register;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,8 +47,21 @@ class RegisterController extends AbstractController
         /** @var Trip $trip */
         $trip = $entityManager->getRepository(Trip::class)->find($idTrip);
 
-        Register::subscribe($participant, $trip);
+
+        if($this->tripValidForRegistry($trip)){
+            Register::subscribe($participant, $trip);
+        }
 
         return new Response('TODO: set message succes when user register on trip');
+    }
+
+    /**
+     * @param Trip $trip
+     * @return bool
+     * @throws Exception
+     */
+    public function tripValidForRegistry(Trip $trip): bool
+    {
+        return ($trip->getState() !== StateTypeEnum::getAvailableTypes()[1] && new DateTime('now') < $trip->getEndDate());
     }
 }
