@@ -1,14 +1,42 @@
 # Latest documentation available at https://omines.github.io/datatables-bundle/#configuration
 datatables:
-    # Set options, as documented at https://datatables.net/reference/option/
-    options:
-        lengthMenu : [10, 25, 50, 100, 250, 500, 1000, 2500]
-        pageLength: 50
-        dom: "<'row' <'col-sm-12' tr>><'row' <'col-sm-6'l><'col-sm-6 text-right'pi>>"
+  # # Set options, as documented at https://datatables.net/reference/option/
 
-    template_parameters:
-        # Example classes to integrate nicely with Bootstrap 3.x
-        className: 'table table-striped table-bordered table-hover data-table'
+  # template_parameters:
+  #     # Example classes to integrate nicely with Bootstrap 3.x
 
-    # You can for example override this to "tables" to keep the translation domains separated nicely
-    translation_domain: 'messages'
+  # # You can for example override this to "tables" to keep the translation domains separated nicely
+  # translation_domain: 'messages'
+  # Load i18n data from DataTables CDN or locally
+  language_from_cdn: true
+
+  # Default HTTP method to be used for callbacks
+  method: POST # One of "GET"; "POST"
+
+  # Default options to load into DataTables
+
+  # Where to persist the current table state automatically
+  persist_state: fragment # One of "none"; "query"; "fragment"; "local"; "session"
+
+  # Default service used to render templates, built-in TwigRenderer uses global Twig environment
+  renderer: Omines\DataTablesBundle\Twig\TwigRenderer
+
+  # Default template to be used for DataTables HTML
+  template: "@DataTables/datatable_html.html.twig"
+
+  options:
+    lengthMenu: [10, 25, 50, 100, 250, 500, 1000, 2500]
+    pageLength: 10
+    dom: "<'container w-full md:w-4/5 xl:w-3/5  mx-auto px-2' <'' tr>><'row' <'col-sm-6'l><'col-sm-6 text-right'pi>>"
+
+  # Default parameters to be passed to the template
+  template_parameters:
+    # Default class attribute to apply to the root table elements
+    # className: "table table-bordered"
+    className: "min-w-full"
+
+    # If and where to enable the DataTables Filter module
+    columnFilter: null # One of "thead"; "tfoot"; "both"; null
+
+  # Default translation domain to be used
+  translation_domain: messages

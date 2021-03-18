@@ -35,7 +35,13 @@ Encore
   // will require an extra script tag for runtime.js
   // but, you probably want this, unless you're building a single-page app
   .enableSingleRuntimeChunk()
-  .enablePostCssLoader()
+  // .enablePostCssLoader()
+  .enablePostCssLoader((options) => {
+    options.postcssOptions = {
+      // the directory where the postcss.config.js file is stored
+      config: path.resolve(__dirname, "./", "postcss.config.js"),
+    };
+  })
 
   /*
    * FEATURE CONFIG
@@ -72,6 +78,7 @@ Encore
 // uncomment if you use API Platform Admin (composer req api-admin)
 //.enableReactPreset()
 //.addEntry('admin', './assets/admin.js')
+
 if (Encore.isProduction()) {
   Encore.addPlugin(
     new PurgeCssPlugin({
