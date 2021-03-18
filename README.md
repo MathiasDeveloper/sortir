@@ -19,6 +19,7 @@
   - [II. c. Entities modification](#ii-c-entities-modification)
   - [II. d. PHP Lint](#ii-d-php-lint)
   - [II. e. PHPstan](#ii-e-phpstan)
+- [II. Translate](#iii-translate)
 
 ## Links
 
@@ -160,4 +161,28 @@ composer phpcs
 
 ```bash
 composer phpstan
+```
+
+### III. Translate 
+
+If you need to translate message on app :
+
+Use this on twig file for to tell symfony to read the message between the tags 
+
+```twig
+    {% trans %}Your profile{% endtrans %}
+```
+
+All configuration of translation is present to _project/config/packages/translation.yaml_
+
+For add new language you need specify on fallbacks new languages in array for exemple '_es_'
+
+```yaml
+    fallbacks: ['en', 'fr', 'es']
+```
+
+Generate files with command symfony :
+
+```bash
+    php bin/console translation:update --force [fr] or other language 
 ```
