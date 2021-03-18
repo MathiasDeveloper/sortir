@@ -6,9 +6,11 @@ namespace App\Services;
 
 
 use App\Entity\Participant;
+use App\Entity\Trip;
 
 interface RegistrationInterface
 {
-    public function register(Participant $participant): void;
-    public function unsubscribe(Participant $participant): void;
+    public static function subscribe(Participant &$participant, Trip $trip): void;
+    public static function unsubscribe(Participant &$participant, Trip $trip): void;
+    public static function isValid(Participant $participant, Trip $trip): bool;
 }
