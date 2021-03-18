@@ -32,7 +32,7 @@ class Register implements RegistrationInterface
      * @param Participant $participant
      * @param Trip $trip
      */
-    public static function unsubscribe(Participant $participant, Trip $trip): void
+    public static function unsubscribe(Participant &$participant, Trip $trip): void
     {
         // TODO: Implement unsubscribe() method.
     }
