@@ -30,7 +30,7 @@ class RegisterController extends AbstractController
      */
     public function register(Request $request, EntityManagerInterface $entityManager): Response
     {
-        if (!$this->getUser()){
+        if (!$this->getUser()) {
             return $this->redirectToRoute('/');
         }
 
@@ -48,7 +48,7 @@ class RegisterController extends AbstractController
         $trip = $entityManager->getRepository(Trip::class)->find($idTrip);
 
 
-        if($this->tripValidForRegistry($trip)){
+        if ($this->tripValidForRegistry($trip)) {
             Register::subscribe($participant, $trip);
         }
 
@@ -62,6 +62,7 @@ class RegisterController extends AbstractController
      */
     public function tripValidForRegistry(Trip $trip): bool
     {
-        return ($trip->getState() !== StateTypeEnum::getAvailableTypes()[1] && new DateTime('now') < $trip->getEndDate());
+        return ($trip->getState() !== StateTypeEnum::getAvailableTypes()[1] && new DateTime('now') < $trip->getEndDate(
+            ));
     }
 }
