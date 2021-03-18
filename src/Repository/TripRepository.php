@@ -25,10 +25,75 @@ class TripRepository extends ServiceEntityRepository
             ->join('t.place', 'p')
             ->addSelect('s2')
             ->join('t.subscriptions', 's2')
-            ->setMaxResults(50)
+            // ->addSelect('s3')
+            // ->join('COUNT(t.subscriptions)', 's3')
+            // ->addSelect('COUNT(t.subscriptions)')
+            // ->setMaxResults(50)
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findAllSearch($site, $like, $begindate, $enddate, bool $selforganisor, bool $selfsubscription, bool $selfunsubscription, bool $endtrips, $currentUser)
+    {
+        $qb = $this->createQueryBuilder('t');
+
+        $qb = $qb->join('t.site', 's')
+                ->addSelect('s')
+                ->join('t.organisor', 'o')
+                ->addSelect('o')
+                ->join('t.subscriptions', 'sub')
+                ->addSelect('sub')
+        ;
+
+        if (isset($site)) {
+            $qb->andWhere('s.name=:sitename')
+                ->setParameter('sitename', $site);
+        }
+
+        if (isset($like)) {
+            $qb->andWhere($qb->expr()->like('t.name', ':name'))
+                ->setParameter('name', '%'.$like.'%');
+        }
+
+        if (isset($begindate) && isset($enddate)) {
+            $qb->andWhere('t.begin_date >= :begindate')
+            ->setParameter('begindate', $begindate->format('Y-m-d 00:00:00'));
+            $qb->andWhere('t.end_date <= :enddate')
+            ->setParameter('enddate', $enddate->format('Y-m-d 00:00:00'));
+        }
+        if (isset($begindate)) {
+            $qb->andWhere('t.begin_date >= :begindate')
+            ->setParameter('begindate', $begindate->format('Y-m-d 00:00:00'));
+        }
+
+        if (isset($enddate)) {
+            $qb->andWhere('t.end_date <= :enddate')
+            ->setParameter('enddate', $enddate->format('Y-m-d 00:00:00'));
+        }
+
+        if ($selforganisor) {
+            $qb->andWhere('t.organisor=:currentUser')
+                ->setParameter('currentUser', $currentUser);
+        }
+        if ($selfsubscription) {
+            dump($selfsubscription);
+            $qb->andWhere('sub.id = :idSub')
+                ->setParameter('idSub', $currentUser->getId());
+        }
+        if ($selfunsubscription) {
+            $qb->andWhere('sub.id NOT IN (:idSub)')
+                ->setParameter('idSub', $currentUser->getId());
+        }
+        if ($endtrips) {
+            $qb->andWhere('t.state = :end')
+                ->setParameter('end', 'ENDED');
+        }
+
+        $query = $qb->getQuery()
+            ->getResult();
+
+        return $query;
     }
 
     /*

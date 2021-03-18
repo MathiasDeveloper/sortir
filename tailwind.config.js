@@ -6,6 +6,9 @@ module.exports = {
       fontFamily: {
         montserrat: ["Montserrat"],
       },
+      maxWidth: {
+        "8xl": "90rem",
+      },
     },
   },
   variants: {

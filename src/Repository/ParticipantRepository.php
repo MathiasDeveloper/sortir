@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Participant;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -13,11 +14,42 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  * @method Participant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method Particpant|null  findOneWithSite($id)
  */
-class ParticipantRepository extends ServiceEntityRepository
+class ParticipantRepository extends ServiceEntityRepository implements UserLoaderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Participant::class);
+    }
+
+    public function loadUserByUsername(string $usernameOrEmail)
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('t')
+            ->join('p.trips', 't')
+            ->andWhere('p.username = :username')
+            ->setParameter('username', $usernameOrEmail)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function findOneByUsernameWithTrips(string $username)
+    {
+        // dd($username);
+
+        return $this->createQueryBuilder('p')
+            ->addSelect('t')
+            ->join('p.trips', 't')
+            ->andWhere('p.username = :username')
+            ->setParameter('username', $username)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+        // return $this->createQueryBuilder('p')
+            // ->addSelect('t')
+            // ->join('p.trips', 't')
+        //     ->andWhere('participant.username = :username')
+        //     ->setParameter('username', $username)
+        //     ->getOneOrNullResult();
     }
 
     // Get articles with their categories if published and Paginator

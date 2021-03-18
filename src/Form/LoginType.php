@@ -17,7 +17,7 @@ class LoginType extends AbstractType
             ->add('email', EmailType::class, [
                 'label'       => 'E-mail',
                 'label_attr'  => [
-                    'class' => 'label',
+                    'class' => 'block text-sm font-medium text-gray-700',
                 ],
                 'attr'  => [
                     'class' => 'input-text',

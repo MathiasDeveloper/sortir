@@ -12,6 +12,21 @@ body {
     @apply block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50;
 }
 
+.input-select {
+    @apply block w-full py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
+}
+
+.input-checkbox {
+    @apply w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500;
+}
+.label-checkbox {
+    @apply font-medium text-gray-700;
+}
+
+.container-custom {
+    @apply px-2 mx-auto max-w-8xl sm:px-6 lg:px-8 pt-20;
+}
+
 .content {
     min-height: calc(100vh - 90px);
 }
