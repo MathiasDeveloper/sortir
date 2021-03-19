@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\UserType;
+use App\Entity\Participant;
 use App\Form\UpdatePasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,9 +15,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AccountController extends AbstractController
 {
     /**
-     * @Route("/profile", name="profile")
+     * @Route("/editer-profil", name="profile_edit")
      */
-    public function index(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = $this->getUser();
         $form_user = $this->createForm(UserType::class, $user);
@@ -34,7 +35,7 @@ class AccountController extends AbstractController
                 $flash_message
             );
 
-            return $this->redirectToRoute('profile');
+            return $this->redirectToRoute('profile_edit');
         }
         $form_password->handleRequest($request);
         if ($form_password->isSubmitted() && $form_password->isValid()) {
@@ -66,13 +67,26 @@ class AccountController extends AbstractController
                 $flash_message
             );
 
-            return $this->redirectToRoute('profile');
+            return $this->redirectToRoute('profile_edit');
         }
 
-        return $this->render('pages/profile/index.html.twig', [
+        return $this->render('pages/profile/edit.html.twig', [
             'form_user'     => $form_user->createView(),
             'form_password' => $form_password->createView(),
             // 'user'      => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/profil/{id}", name="profile_show")
+     */
+    public function show(Request $request, int $id, EntityManagerInterface $entityManager)
+    {
+        $user = $entityManager->getRepository(Participant::class);
+        $user = $user->findOneBy(['id' => $id]);
+
+        return $this->render('pages/profile/show.html.twig', [
+            'user'      => $user,
         ]);
     }
 }

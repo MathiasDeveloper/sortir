@@ -86,6 +86,11 @@ class Participant implements UserInterface
      */
     private $trips;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private string $photoUrl;
+
     public function __construct()
     {
         $this->subscriptions = new ArrayCollection();
@@ -317,5 +322,25 @@ class Participant implements UserInterface
     public function setRoles(iterable $roles): void
     {
         $this->roles = $roles;
+    }
+
+    /**
+     * Get the value of photoUrl.
+     */
+    public function getPhotoUrl()
+    {
+        return $this->photoUrl;
+    }
+
+    /**
+     * Set the value of photoUrl.
+     *
+     * @return self
+     */
+    public function setPhotoUrl($photoUrl)
+    {
+        $this->photoUrl = $photoUrl;
+
+        return $this;
     }
 }
