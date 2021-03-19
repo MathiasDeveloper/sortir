@@ -27,6 +27,10 @@ body {
     @apply px-2 mx-auto max-w-8xl sm:px-6 lg:px-8 pt-20;
 }
 
+.container-custom-basic {
+    @apply px-2 mx-auto max-w-8xl sm:px-6 lg:px-8;
+}
+
 .content {
     min-height: calc(100vh - 90px);
 }

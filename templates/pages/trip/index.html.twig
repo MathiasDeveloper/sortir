@@ -6,13 +6,16 @@
 
 {% block body %}
 	<div class="container-custom">
-		<div class="mb-8 ml-3">
+		<div class="mb-8 ml-3 lg:max-w-5xl">
 			<div class="mb-6 text-3xl font-semibold text-red-600 font-montserrat">
 				Filtrer les sorties
 			</div>
 
 			{{ form_start(form) }}
-			<div class="grid grid-cols-3">
+			<div>
+				{{ form_errors(form) }}
+			</div>
+			<div class="lg:grid lg:grid-cols-2">
 				<div class="col-span-1 space-y-4">
 					<div class="max-w-xs">
 						{{ form_row(form.site) }}
@@ -33,15 +36,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="pt-5">
-						<div class="flex justify-start">
-							<button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-								Rechercher
-							</button>
-						</div>
-					</div>
 				</div>
-				<div class="col-span-1">
+				<div class="col-span-1 mt-5 lg:mt-0">
 					<fieldset>
 						<legend class="text-base font-medium text-gray-900">Options</legend>
 						<div class="mt-4 space-y-4">
@@ -79,6 +75,13 @@
 							</div>
 						</div>
 					</fieldset>
+				</div>
+				<div class="pt-5">
+					<div class="flex justify-start">
+						<button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+							Rechercher
+						</button>
+					</div>
 				</div>
 			</div>
 			{{ form_end(form) }}
@@ -155,10 +158,11 @@
 											</td>
 											<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
 												{{ trip.organisor.username }}
+
 											</td>
 											<td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-												{% if trip.state_raw != 'ENDED' %}
-													<a href="#" class="text-red-600 hover:text-red-900">
+												{% if trip.state_raw != 'ENDED' and trip.state_raw != 'CANCELED' %}
+													<a href="{{ path('trip_show', { id: trip.id }) }}" class="text-red-600 hover:text-red-900">
 														Afficher
 													</a>
 												{% endif %}

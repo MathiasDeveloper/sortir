@@ -165,4 +165,17 @@ class TripController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("/sorties/{id}", name="trip_show")
+     */
+    public function show(EntityManagerInterface $entityManager, int $id)
+    {
+        $tr = $entityManager->getRepository(Trip::class);
+        $current_trip = $tr->findOneBy(['id' => $id]);
+
+        return $this->render('pages/trip/show.html.twig', [
+            'trip'       => $current_trip,
+        ]);
+    }
 }
