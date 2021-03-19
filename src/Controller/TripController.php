@@ -79,11 +79,6 @@ class TripController extends AbstractController
         //     return $tripsTable->getResponse();
         // }
 
-        // if user is not connected redirect to login page
-        if (!$this->getUser()){
-            return $this->redirect('/login');
-        }
-
         $tripRepository = $this->getDoctrine()->getRepository(Trip::class);
         $trips = $tripRepository->findAllWithRelations();
 
