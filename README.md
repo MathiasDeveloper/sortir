@@ -58,7 +58,7 @@ Migrate database
 php bin/console doctrine:migrations:migrate ; php bin/console doctrine:fixtures:load
 ```
 
-Execute local server
+Launch local server
 
 ```bash
 symfony server:start
