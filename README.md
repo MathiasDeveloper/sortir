@@ -19,7 +19,7 @@
   - [II. c. Entities modification](#ii-c-entities-modification)
   - [II. d. PHP Lint](#ii-d-php-lint)
   - [II. e. PHPstan](#ii-e-phpstan)
-- [II. Translate](#iii-translate)
+  - [III. Translate](#iii-translate)
 
 ## Links
 
@@ -163,11 +163,11 @@ composer phpcs
 composer phpstan
 ```
 
-### III. Translate 
+### III. Translate
 
 If you need to translate message on app :
 
-Use this on twig file for to tell symfony to read the message between the tags 
+Use this on twig file for to tell symfony to read the message between the tags
 
 ```twig
     {% trans %}Your profile{% endtrans %}

@@ -14,7 +14,7 @@ class SiteFixtures extends Fixture
         $faker = Factory::create();
 
         // SITES
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $site = new Site();
             $site->setName($faker->city);
             $manager->persist($site);

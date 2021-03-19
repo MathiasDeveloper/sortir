@@ -77,6 +77,8 @@ class Trip
      */
     private $state;
 
+    private $state_raw;
+
     /**
      * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="participants")
      */
@@ -253,5 +255,13 @@ class Trip
                 ->atPath('startDate')
                 ->addViolation();
         }
+    }
+
+    /**
+     * Get the value of state_raw.
+     */
+    public function getState_raw()
+    {
+        return $this->state;
     }
 }

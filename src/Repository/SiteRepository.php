@@ -19,6 +19,18 @@ class SiteRepository extends ServiceEntityRepository
         parent::__construct($registry, Site::class);
     }
 
+    /**
+     * @return Place[] Returns an array of Place objects
+     */
+    public function orderByName()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Site[] Returns an array of Site objects
     //  */

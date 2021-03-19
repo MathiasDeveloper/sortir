@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Site;
 use App\Entity\Trip;
+use App\Entity\Place;
 use App\Form\TripForm;
+use App\Form\TripsType;
+use App\Entity\Participant;
 use App\Enums\StateTypeEnum;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,28 +27,6 @@ class TripController extends AbstractController
      */
     public function index(Request $request, DataTableFactory $dataTableFactory, EntityManagerInterface $entityManager): Response
     {
-        $trips = $this->getDoctrine()
-            ->getRepository(Trip::class)
-            ->findAllWithRelations();
-        // $trips = $repository->findAll();
-
-        // $trip = $trips[0];
-
-        // /** @var Trip $trip */
-        // $organisor = $trip->getOrganisor()->getUsername();
-
-        // dd($organisor);
-
-        // // with $entityManager in params
-        // // $entityManager->getRepository(Book::class);
-
-        // // dependencies injection $bookRepository in params
-        // $books = $bookRepository->findAll();
-
-        // $repository = $entityManager->getRepository(Trip::class);
-
-        // $trip = $repository->findAll();
-        // dd($trip[0]->getOrganisor());
         // $tripsTable = $dataTableFactory->create()
         // ->add('name', TextColumn::class, [
         //     'label'            => 'Nom de la sortie',
@@ -94,15 +76,56 @@ class TripController extends AbstractController
         //     return $tripsTable->getResponse();
         // }
 
-        // dd($this->getUser());
+        $tripRepository = $this->getDoctrine()->getRepository(Trip::class);
+        $trips = $tripRepository->findAllWithRelations();
+
+        $participant = $entityManager->getRepository(Participant::class);
+        $participant = $participant->loadUserByUsername($this->getUser()->getUsername());
+        $form = $this->createForm(TripsType::class);
+
         // dd($trips);
-        // for ($i=0; $i < ; $i++) {
-        //     # code...
-        // }
-        // dd(->getName());
+        // dd($participant->getSubscriptions()->count());
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData();
+
+            // site
+            $site_name = $search['site']->getName();
+            $site = $entityManager->getRepository(Site::class)->findOneBy(['name' => $site_name]);
+            $site = $site ? $site->getName() : null;
+
+            // name wild card
+            $like = $search['search'];
+            $like = trim($like);
+            $like = $like ? $like : null;
+
+            // dates
+            $begindate = $search['begin_date'];
+            $enddate = $search['end_date'];
+
+            // checkboxes
+            $selforganisor = filter_var($search['self_organisor'], FILTER_VALIDATE_BOOLEAN);
+            $selfsubscription = filter_var($search['self_subscription'], FILTER_VALIDATE_BOOLEAN);
+            $selfunsubscription = filter_var($search['self_unsubscription'], FILTER_VALIDATE_BOOLEAN);
+            $endtrips = filter_var($search['end_trips'], FILTER_VALIDATE_BOOLEAN);
+
+            $currentUser = $this->getUser();
+
+            $trips = $tripRepository->findAllSearch($site, $like, $begindate, $enddate, $selforganisor, $selfsubscription, $selfunsubscription, $endtrips, $currentUser);
+            // dd($trips);
+
+            return $this->render('pages/trip/index.html.twig', [
+                'trips'       => $trips,
+                'participant' => $participant,
+                'form'        => $form->createView(),
+            ]);
+        }
 
         return $this->render('pages/trip/index.html.twig', [
-            'trips' => $trips,
+            'trips'       => $trips,
+            'participant' => $participant,
+            'form'        => $form->createView(),
         ]);
     }
 
@@ -117,6 +140,8 @@ class TripController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TripForm::class);
+        $places = $entityManager->getRepository(Place::class);
+        $places = $places->findAll();
 
         $form->handleRequest($request);
 
@@ -139,8 +164,65 @@ class TripController extends AbstractController
         return $this->render(
             '/pages/trip/new.html.twig',
             [
-                'form' => $form->createView(),
+                'form'   => $form->createView(),
+                'places' => $places,
             ]
         );
+    }
+
+    /**
+     * @Route("/sorties/{id}", name="trip_show")
+     */
+    public function show(EntityManagerInterface $entityManager, int $id)
+    {
+        $tr = $entityManager->getRepository(Trip::class);
+        $current_trip = $tr->findOneBy(['id' => $id]);
+
+        return $this->render('pages/trip/show.html.twig', [
+            'trip'       => $current_trip,
+        ]);
+    }
+
+    /**
+     * @Route("/sorties/edit/{id}", name="trip_edit")
+     */
+    public function edit(Request $request, EntityManagerInterface $entityManager, int $id)
+    {
+        $tr = $entityManager->getRepository(Trip::class);
+        $current_trip = $tr->findOneBy(['id' => $id]);
+        $places = $entityManager->getRepository(Place::class);
+        $places = $places->findAll();
+
+        $form = $this->createForm(TripForm::class, $current_trip);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trip = $form->getData();
+
+            $entityManager->persist($trip);
+            $entityManager->flush();
+
+            if ($form->get('save')->isClicked()) {
+                return $this->redirectToRoute('trip');
+            }
+            if ($form->get('send')->isClicked()) {
+                $trip->setState(StateTypeEnum::TYPE_OPENED);
+
+                $entityManager->persist($trip);
+                $entityManager->flush();
+            }
+            if ($form->get('delete')->isClicked()) {
+                dump('delete');
+            }
+            if ($form->get('cancel')->isClicked()) {
+                return $this->redirect($request->server->get('HTTP_REFERER'));
+            }
+        }
+
+        return $this->render('pages/trip/edit.html.twig', [
+            'form'       => $form->createView(),
+            'trip'       => $current_trip,
+            'places'     => $places,
+        ]);
     }
 }
