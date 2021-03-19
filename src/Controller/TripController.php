@@ -9,8 +9,11 @@ use App\Form\TripForm;
 use App\Form\TripsType;
 use App\Entity\Participant;
 use App\Enums\StateTypeEnum;
+use App\Trip\Constant\Constant;
+use DateTime;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Omines\DataTablesBundle\Column\TextColumn;
@@ -117,8 +120,14 @@ class TripController extends AbstractController
 
             $currentUser = $this->getUser();
 
+            /** @var array<Trip> $trips */
             $trips = $tripRepository->findAllSearch($site, $like, $begindate, $enddate, $selforganisor, $selfsubscription, $selfunsubscription, $endtrips, $currentUser);
-            // dd($trips);
+
+            // if endDate is late new state for trip on closed
+            array_filter($trips, function ($trip) {
+                $this->closedTrip($trip);
+            });
+            $entityManager->flush();
 
             return $this->render('pages/trip/index.html.twig', [
                 'trips'       => $trips,
@@ -151,11 +160,11 @@ class TripController extends AbstractController
         $form->handleRequest($request);
 
         $states = StateTypeEnum::getAvailableTypes();
-        $state = $states[0];
+        $state = $states[Constant::TYPE_CREATED];
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (array_key_exists('send', $request->request->get('trip_form'))) {
-                $state = $states[1];
+                $state = $states[Constant::TYPE_OPENED];
             }
 
             /** @var Trip $trip */
@@ -229,5 +238,31 @@ class TripController extends AbstractController
             'trip'       => $current_trip,
             'places'     => $places,
         ]);
+    }
+
+    /**
+     * @param Trip $trip
+     * @throws Exception
+     */
+    public function closedTrip(Trip &$trip): void
+    {
+        if ($trip->getEndDate() > new DateTime('now')){
+            $trip->setState(StateTypeEnum::getAvailableTypes()[Constant::TYPE_CLOSED]);
+        }
+    }
+
+    /**
+     * @Route("/sorties/close/{id}", name="close_trip", methods={"GET"})
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param int $id
+     * @return Response
+     */
+    public function cancel(EntityManagerInterface $entityManager, int $id): Response
+    {
+        /** @var Trip $trip */
+        $trip = $entityManager->getRepository(Trip::class)->find($id);
+        $trip->setState(StateTypeEnum::getAvailableTypes()[Constant::TYPE_CANCELED]);
+        return $this->redirectToRoute('trip');
     }
 }

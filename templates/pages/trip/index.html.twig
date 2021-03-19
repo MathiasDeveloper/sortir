@@ -6,6 +6,11 @@
 
 {% block body %}
 	<div class="container-custom">
+        {% for message in app.flashes('close_error') %}
+            <div class="badge-warning">
+                {{ message }}
+            </div>
+        {% endfor %}
 		<div class="mb-8 ml-3 lg:max-w-5xl">
 			<div class="mb-6 text-3xl font-semibold text-red-600 font-montserrat">
 				Filtrer les sorties
@@ -176,11 +181,17 @@
 														S'inscrire
 													</a>
 												{% endif %}
-												{% if isOrganisor %}
+                        {% if trip.state_raw != 'CLOSED' and not subscribe %}
+                            <a href="{{ path('registerTrip', {id: app.user.id, id_trip: trip.id}) }}"
+                               class="text-red-600 hover:text-red-900">
+                                S'inscrire
+                            </a>
+                        {% endif %}
+												{% if isOrganisor and trip.state_raw != 'CLOSED' %}
 													<a href="{{ path('trip_edit', { id: trip.id }) }}" class="text-red-600 hover:text-red-900">
 														Modifier
 													</a>
-													<a href="#" class="text-red-600 hover:text-red-900">
+													<a href="{{ path('close_trip', { id: trip.id }) }}" class="text-red-600 hover:text-red-900">
 														Annuler
 													</a>
 												{% endif %}
