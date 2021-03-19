@@ -51,7 +51,7 @@ class TripsType extends AbstractType
             ])
             ->add('begin_date', DateType::class, [
                 'widget'       => 'single_text',
-                'label'        => 'Date de début',
+                'label'        => 'Date de la sortie',
                 'label_attr'   => [
                     'class' => 'label',
                 ],
@@ -62,7 +62,7 @@ class TripsType extends AbstractType
             ])
             ->add('end_date', DateType::class, [
                 'widget'       => 'single_text',
-                'label'        => 'Date de fin',
+                'label'        => 'Date de clôture',
                 'label_attr'   => [
                     'class' => 'label',
                 ],

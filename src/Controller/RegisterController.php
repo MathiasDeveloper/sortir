@@ -1,46 +1,45 @@
 <?php
 
-
 namespace App\Controller;
 
-
-use App\Entity\Participant;
-use App\Entity\Trip;
-use App\Enums\StateTypeEnum;
-use App\Exception\InvalidArgumentException;
-use App\Services\Trip\Register;
 use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Trip;
+use App\Entity\Participant;
+use App\Enums\StateTypeEnum;
+use App\Services\Trip\Register;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 class RegisterController extends AbstractController
 {
-
     /**
      * @Route("/register", name="registerTrip", methods={"GET"})
      *
-     * @param Request $request
+     * @param Request                $request
      * @param EntityManagerInterface $entityManager
-     * @return Response
+     *
      * @throws InvalidArgumentException
      * @throws Exception
+     *
+     * @return Response
      */
     public function register(Request $request, EntityManagerInterface $entityManager): Response
     {
-        if (!$this->getUser()) {
+        if (! $this->getUser()) {
             return $this->redirectToRoute('/');
         }
 
-        if (!($id = $request->query->get('id'))) {
+        if (! ($id = $request->query->get('id'))) {
             throw new InvalidParameterException(sprintf('%s not exist', $id));
         }
 
-        if (!($idTrip = $request->query->get('id_trip'))) {
+        if (! ($idTrip = $request->query->get('id_trip'))) {
             throw new InvalidParameterException(sprintf('%s not exist', $idTrip));
         }
 
@@ -60,23 +59,25 @@ class RegisterController extends AbstractController
     /**
      * @Route("/unsubscribe", name="unsubscribeTrip", methods={"GET"})
      *
-     * @param Request $request
+     * @param Request                $request
      * @param EntityManagerInterface $entityManager
-     * @return Response
+     *
      * @throws InvalidArgumentException
      * @throws Exception
+     *
+     * @return Response
      */
     public function unsubscribe(Request $request, EntityManagerInterface $entityManager): Response
     {
-        if (!$this->getUser()) {
+        if (! $this->getUser()) {
             return $this->redirectToRoute('/');
         }
 
-        if (!($id = $request->query->get('id'))) {
+        if (! ($id = $request->query->get('id'))) {
             throw new InvalidParameterException(sprintf('%s not exist', $id));
         }
 
-        if (!($idTrip = $request->query->get('id_trip'))) {
+        if (! ($idTrip = $request->query->get('id_trip'))) {
             throw new InvalidParameterException(sprintf('%s not exist', $idTrip));
         }
 
@@ -93,15 +94,16 @@ class RegisterController extends AbstractController
         return $this->redirect('/sorties');
     }
 
-
     /**
      * @param Trip $trip
-     * @return bool
+     *
      * @throws Exception
+     *
+     * @return bool
      */
     public function tripValidForRegistry(Trip $trip): bool
     {
-        return ($trip->getState() !== StateTypeEnum::getAvailableTypes()[1] && new DateTime('now') < $trip->getEndDate(
-            ));
+        return $trip->getState() !== StateTypeEnum::getAvailableTypes()[1] && new DateTime('now') < $trip->getEndDate(
+            );
     }
 }
