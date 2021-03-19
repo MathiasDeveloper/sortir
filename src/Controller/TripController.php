@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Site;
 use App\Entity\Trip;
+use App\Entity\Place;
 use App\Form\TripForm;
 use App\Form\TripsType;
 use App\Entity\Participant;
@@ -139,6 +140,8 @@ class TripController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TripForm::class);
+        $places = $entityManager->getRepository(Place::class);
+        $places = $places->findAll();
 
         $form->handleRequest($request);
 
@@ -161,7 +164,8 @@ class TripController extends AbstractController
         return $this->render(
             '/pages/trip/new.html.twig',
             [
-                'form' => $form->createView(),
+                'form'   => $form->createView(),
+                'places' => $places,
             ]
         );
     }
@@ -176,6 +180,49 @@ class TripController extends AbstractController
 
         return $this->render('pages/trip/show.html.twig', [
             'trip'       => $current_trip,
+        ]);
+    }
+
+    /**
+     * @Route("/sorties/edit/{id}", name="trip_edit")
+     */
+    public function edit(Request $request, EntityManagerInterface $entityManager, int $id)
+    {
+        $tr = $entityManager->getRepository(Trip::class);
+        $current_trip = $tr->findOneBy(['id' => $id]);
+        $places = $entityManager->getRepository(Place::class);
+        $places = $places->findAll();
+
+        $form = $this->createForm(TripForm::class, $current_trip);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trip = $form->getData();
+
+            $entityManager->persist($trip);
+            $entityManager->flush();
+
+            if ($form->get('save')->isClicked()) {
+                return $this->redirectToRoute('trip');
+            }
+            if ($form->get('send')->isClicked()) {
+                $trip->setState(StateTypeEnum::TYPE_OPENED);
+
+                $entityManager->persist($trip);
+                $entityManager->flush();
+            }
+            if ($form->get('delete')->isClicked()) {
+                dump('delete');
+            }
+            if ($form->get('cancel')->isClicked()) {
+                return $this->redirect($request->server->get('HTTP_REFERER'));
+            }
+        }
+
+        return $this->render('pages/trip/edit.html.twig', [
+            'form'       => $form->createView(),
+            'trip'       => $current_trip,
+            'places'     => $places,
         ]);
     }
 }

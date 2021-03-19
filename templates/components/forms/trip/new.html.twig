@@ -1,4 +1,108 @@
-<h1 class="text-transparent">Create trip</h1>
-<div class="pt-20">
-    {{ form(form) }}
+<div>
+	{{ form_start(form) }}
+	<div>
+		{{ form_errors(form) }}
+	</div>
+	<div class="space-y-6 lg:gap-6 lg:grid lg:grid-cols-2 lg:space-y-0">
+		<div class="px-4 py-5 bg-white shadow sm:rounded-lg sm:p-6">
+			<div>
+				<h3 class="text-lg font-medium leading-6 text-red-600 font-montserrat">
+					Nouvelle sortie
+				</h3>
+				<div class="mt-5 space-y-5">
+					<div>
+						{{ form_label(form.name) }}
+						<div class="flex mt-1 rounded-md shadow-sm">
+							{{ form_widget(form.name) }}
+						</div>
+					</div>
+					<div class="space-y-5 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
+						<div>
+							{{ form_label(form.begin_date) }}
+							<div class="flex mt-1 rounded-md shadow-sm">
+								{{ form_widget(form.begin_date) }}
+							</div>
+						</div>
+						<div>
+							{{ form_label(form.end_date) }}
+							<div class="flex mt-1 rounded-md shadow-sm">
+								{{ form_widget(form.end_date) }}
+							</div>
+						</div>
+					</div>
+					<div class="space-y-5 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
+						<div>
+							{{ form_label(form.duration) }}
+							<div class="flex mt-1 rounded-md shadow-sm">
+								{{ form_widget(form.duration) }}
+							</div>
+						</div>
+						<div>
+							{{ form_label(form.max_subscriptions) }}
+							<div class="flex mt-1 rounded-md shadow-sm">
+								{{ form_widget(form.max_subscriptions) }}
+							</div>
+						</div>
+					</div>
+					<div>
+						{{ form_label(form.description) }}
+						<div class="flex mt-1 rounded-md shadow-sm">
+							{{ form_widget(form.description) }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="px-4 py-5 bg-white shadow sm:rounded-lg sm:p-6">
+			<div>
+				<h3 class="text-lg font-medium leading-6 text-red-600 font-montserrat">
+					Sélectionner le lieu
+				</h3>
+				<div class="mt-5">
+					<div>
+						{{ form_label(form.place) }}
+						<div class="flex items-center space-x-5">
+							<div class="flex w-11/12 mt-1 rounded-md shadow-sm">
+								{{ form_widget(form.place) }}
+							</div>
+							<a href="" class="text-red-600">
+								<svg class="w-8 h-8" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path>
+								</svg>
+							</a>
+						</div>
+					</div>
+					<div>
+						{% for item in places %}
+							<div id="place_details_{{ loop.index - 1 }}" class="hidden place_details">
+								<ul class="pl-1 mt-2 text-gray-500 list-disc list-inside">
+									<li>Rue :
+										{{ item.street }}</li>
+									<li>Ville :
+										{{ item.city.name }}</li>
+									<li>Code postal :
+										{{ item.city.postcode }}</li>
+									<li>Lat :
+										{{ item.lat }}
+										/ Lon :
+										{{ item.lat }}</li>
+								</ul>
+							</div>
+						{% endfor %}
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="flex justify-end mt-5">
+		{{ form_widget(form.save) }}
+		{{ form_widget(form.send) }}
+		<div class="hidden">
+			{{ form_widget(form.delete) }}
+		</div>
+		{{ form_widget(form.cancel) }}
+	</div>
 </div>
+{{ form_end(form) }}</div>

@@ -2,7 +2,30 @@
 
 
 {% block body %}
-    <div class="max-w-3xl mx-auto">
-        {% include 'components/forms/trip/new.html.twig' %}
-    </div>
+	<div class="container-custom">
+		{% include 'components/forms/trip/new.html.twig' %}
+	</div>
+{% endblock %}
+
+{% block javascript %}
+	<script>
+		let details = document.getElementById(`place_details_0`)
+details.classList.toggle('hidden')
+
+document.addEventListener('input', function (event) {
+
+if (event.target.id !== 'trip_form_place') 
+return;
+
+let all_details = document.getElementsByClassName('place_details')
+for (let item of all_details) {
+item.classList.add('hidden')
+}
+let details = document.getElementById (`place_details_${
+event.target.value
+}`)
+details.classList.toggle('hidden')
+
+}, false);
+	</script>
 {% endblock %}
