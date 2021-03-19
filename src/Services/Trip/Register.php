@@ -31,10 +31,14 @@ class Register implements RegistrationInterface
     /**
      * @param Participant $participant
      * @param Trip $trip
+     * @throws InvalidArgumentException
      */
     public static function unsubscribe(Participant &$participant, Trip $trip): void
     {
-        // TODO: Implement unsubscribe() method.
+        if (!self::isValid($participant, $trip)) {
+            throw new InvalidArgumentException(sprintf('%s and %s is null', $participant, $trip));
+        }
+        $participant->removeSubscription($trip);
     }
 
     /**
