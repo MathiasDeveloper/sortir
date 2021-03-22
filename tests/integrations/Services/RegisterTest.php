@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\App\Tests\Services;
+namespace App\Tests\Integrations;
 
 use App\Entity\Participant;
 use App\Entity\Trip;
