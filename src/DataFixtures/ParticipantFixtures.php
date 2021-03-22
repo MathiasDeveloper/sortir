@@ -48,6 +48,7 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
         $participant->setRoles(['ROLE_USER']);
         $participant->setRegistrationDate($faker->dateTimeBetween('-2 week', '-1 day'));
         $participant->setSite($site);
+        $participant->setPhotoUrl("https://eu.ui-avatars.com/api/?name=$name");
         $manager->persist($participant);
 
         // PARTICIPANTS
@@ -73,6 +74,7 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
             $participant->setRoles(['ROLE_USER']);
             $participant->setRegistrationDate($faker->dateTimeBetween('-2 week', '-1 day'));
             $participant->setSite($site);
+            $participant->setPhotoUrl("https://eu.ui-avatars.com/api/?name=$name");
             $manager->persist($participant);
         }
         $manager->flush();

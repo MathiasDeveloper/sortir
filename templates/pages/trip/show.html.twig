@@ -52,7 +52,7 @@
 								Organisateur
 							</dt>
 							<dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-								{{ trip.organisor.username }}
+								<a href="{{ path('profile_show', { id: trip.organisor.id }) }}" class="border-b border-gray-600">{{ trip.organisor.username }}</a>
 								({{ trip.organisor.firstname }}
 								{{ trip.organisor.lastname }})
 							</dd>
@@ -114,8 +114,8 @@
 				<div class="px-4 py-5 border-t border-gray-200 sm:p-0">
 					<ul class="px-8 mt-5 overflow-y-auto divide-y divide-gray-200 max-h-96">
 						{% for item in trip.subscriptions %}
-							<li class="flex py-4">
-								<img class="w-10 h-10 rounded-full" src="https://eu.ui-avatars.com/api/?name={{ item.username }}" alt="">
+							<a href="{{ path('profile_show', { id: item.id }) }}" class="flex p-2 py-4 hover:bg-gray-100">
+								<img class="w-10 h-10 rounded-full" src="{{ item.photoUrl }}" alt="">
 								<div class="ml-3">
 									<p class="text-sm font-medium text-gray-900">
 										{{ item.firstname }}
@@ -124,7 +124,7 @@
 									</p>
 									<p class="text-sm text-gray-500">{{ item.email }}</p>
 								</div>
-							</li>
+							</a>
 						{% endfor %}
 					</ul>
 
