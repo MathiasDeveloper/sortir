@@ -15,6 +15,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Omines\DataTablesBundle\DataTableFactory;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +28,11 @@ class TripController extends AbstractController
 {
     /**
      * @Route("/sorties", name="trip")
+     *
+     * @param Request $request
+     * @param DataTableFactory $dataTableFactory
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
     public function index(Request $request, DataTableFactory $dataTableFactory, EntityManagerInterface $entityManager): Response
     {
@@ -123,9 +129,11 @@ class TripController extends AbstractController
             /** @var array<Trip> $trips */
             $trips = $tripRepository->findAllSearch($site, $like, $begindate, $enddate, $selforganisor, $selfsubscription, $selfunsubscription, $endtrips, $currentUser);
 
-            // if endDate is late new state for trip on closed
-            array_filter($trips, function ($trip) {
+
+            $trips = array_filter($trips, function ($trip) {
                 $this->closedTrip($trip);
+                /** @var Trip $trip */
+                return $trip->isArchived();
             });
             $entityManager->flush();
 
@@ -135,6 +143,15 @@ class TripController extends AbstractController
                 'form'        => $form->createView(),
             ]);
         }
+
+//      if endDate is late new state for trip on closed
+        $trips = array_filter($trips, function ($trip) {
+            $this->closedTrip($trip);
+            /** @var Trip $trip */
+            return $trip->isArchived();
+        });
+        $entityManager->flush();
+
 
         return $this->render('pages/trip/index.html.twig', [
             'trips'       => $trips,
@@ -186,6 +203,10 @@ class TripController extends AbstractController
 
     /**
      * @Route("/sorties/{id}", name="trip_show")
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param int $id
+     * @return Response
      */
     public function show(EntityManagerInterface $entityManager, int $id)
     {
@@ -199,6 +220,11 @@ class TripController extends AbstractController
 
     /**
      * @Route("/sorties/edit/{id}", name="trip_edit")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param int $id
+     * @return RedirectResponse|Response
      */
     public function edit(Request $request, EntityManagerInterface $entityManager, int $id)
     {
@@ -246,7 +272,7 @@ class TripController extends AbstractController
      */
     public function closedTrip(Trip &$trip): void
     {
-        if ($trip->getEndDate() > new DateTime('now')){
+        if ($trip->getEndDate()->getTimestamp() < time()){
             $trip->setState(StateTypeEnum::getAvailableTypes()[Constant::TYPE_CLOSED]);
         }
     }

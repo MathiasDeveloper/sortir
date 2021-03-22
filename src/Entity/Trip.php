@@ -256,9 +256,7 @@ class Trip
      */
     public function isArchived(): bool
     {
-        $date = strtotime($this->getEndDate()->format('Y-m-d'));
-        $archivedDate = date('d/m/Y', strtotime('+1 Month', $date));
-        return ($this->getEndDate()->format('m/d/yy') > $archivedDate);
+        return strtotime('+1 Month', $this->getEndDate()->getTimestamp()) > time();
     }
 
     /**
