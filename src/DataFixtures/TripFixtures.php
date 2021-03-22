@@ -70,13 +70,13 @@ class TripFixtures extends Fixture implements DependentFixtureInterface
         }
         $manager->flush();
 
-        $organisor = $this->entityManager->getRepository(Participant::class)->findOneBy(['username' => 'secret-party']);
+        $organisorCustom = $this->entityManager->getRepository(Participant::class)->findOneBy(['username' => 'secret-party']);
         $tripRepo = $this->entityManager->getRepository(Trip::class);
         $trips = $tripRepo->findAll();
         $trips = array_slice($trips, 0, 3);
 
         for ($i = 0; $i < sizeof($trips); $i++) {
-            $trips[$i]->setOrganisor($organiser);
+            $trips[$i]->setOrganisor($organisorCustom);
             $manager->persist($trips[$i]);
         }
         $manager->flush();
