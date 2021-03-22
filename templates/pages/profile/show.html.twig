@@ -8,11 +8,12 @@
 {% block body %}
 	<div class="container-custom">
 		<div class="flex items-center justify-center space-x-8">
-			<img src="{{ user.photoUrl }}" alt="" class="rounded-full w-52 h-52">
+			<img src="{{ user.photoUrl }}" class="object-cover rounded-full w-52 h-52" alt="user profile picture">
 			<div class="w-1/2 overflow-hidden bg-white shadow sm:rounded-lg">
 				<div class="px-4 py-5 sm:px-6">
 					<h3 class="text-lg font-medium leading-6 text-gray-900">
-						Détails du profil de {{ user.username }}
+						Détails du profil de
+						{{ user.username }}
 					</h3>
 				</div>
 				<div class="px-4 py-5 border-t border-gray-200 sm:p-0">
@@ -22,7 +23,8 @@
 								Nom & prénom
 							</dt>
 							<dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-								{{ user.firstname }} {{ user.lastname }}
+								{{ user.firstname }}
+								{{ user.lastname }}
 							</dd>
 						</div>
 						<div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

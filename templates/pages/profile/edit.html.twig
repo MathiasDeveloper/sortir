@@ -30,22 +30,21 @@
 							</div>
 						</div>
 
-						<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-t sm:border-gray-200 sm:pt-5">
-							<label for="photo" class="block text-sm font-medium text-gray-700">
-								Photo (TODO)
+						<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+							<label for="cover_photo" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+								{{ form_label(form_user.photoUrl) }}
+								{{ form_errors(form_user.photoUrl) }}
 							</label>
-							<div class="mt-1 sm:mt-0 sm:col-span-2">
-								<div class="flex items-center">
-									<span class="w-12 h-12 overflow-hidden bg-gray-100 rounded-full">
-										<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
-											<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"/>
-										</svg>
-									</span>
-									<button type="button" class="px-3 py-2 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-										Change
-									</button>
-								</div>
-							</div>
+							<label class="flex flex-col items-center w-64 px-4 py-6 tracking-wide uppercase transition-colors duration-100 bg-white border rounded-lg shadow cursor-pointer hover:bg-red-200">
+								<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20">
+									<path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"/>
+								</svg>
+								<span class="mt-2 text-base leading-normal">Select a file</span>
+								{{ form_widget(form_user.photoUrl) }}
+								<p class="text-xs text-gray-500">
+									PNG, JPG up to 10MB
+								</p>
+							</label>
 						</div>
 
 						<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
