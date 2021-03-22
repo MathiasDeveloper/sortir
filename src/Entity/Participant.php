@@ -329,6 +329,17 @@ class Participant implements UserInterface
      */
     public function getPhotoUrl()
     {
+        if (filter_var($this->photoUrl, FILTER_VALIDATE_URL)) {
+            return $this->photoUrl;
+        }
+
+        if (null !== $this->photoUrl) {
+            return "/uploads/photos/$this->photoUrl";
+        }
+    }
+
+    public function getPhotoUrlRaw()
+    {
         return $this->photoUrl;
     }
 
