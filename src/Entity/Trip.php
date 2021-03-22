@@ -10,8 +10,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-use function _HumbugBox373c0874430e\RingCentral\Psr7\str;
-
 /**
  * @ORM\Entity(repositoryClass=TripRepository::class)
  */
@@ -65,6 +63,7 @@ class Trip
 
     /**
      * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="trips")
+     * @ORM\JoinColumn(name="place_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      * @Assert\NotBlank
      */
     private $place;
@@ -85,7 +84,6 @@ class Trip
      * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="participants")
      */
     private $site;
-
 
     /**
      * @var bool
@@ -184,7 +182,7 @@ class Trip
 
     public function addSubscription(Participant $subscription): self
     {
-        if (!$this->subscriptions->contains($subscription)) {
+        if (! $this->subscriptions->contains($subscription)) {
             $this->subscriptions[] = $subscription;
         }
 
@@ -229,7 +227,7 @@ class Trip
 
     public function setState(string $state): self
     {
-        if (!in_array($state, StateTypeEnum::getAvailableTypes())) {
+        if (! in_array($state, StateTypeEnum::getAvailableTypes())) {
             throw new \InvalidArgumentException('Invalid type');
         }
 
@@ -251,8 +249,9 @@ class Trip
     }
 
     /**
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     public function isArchived(): bool
     {
