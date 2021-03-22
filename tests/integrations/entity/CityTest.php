@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Units\Entity;
+namespace App\Tests\Integrations\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
