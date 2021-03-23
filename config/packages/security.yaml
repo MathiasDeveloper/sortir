@@ -53,3 +53,4 @@ security:
     - { path: ^/sorties, roles: ROLE_USER }
     - { path: ^/villes, roles: ROLE_ADMIN }
     - { path: ^/lieux, roles: ROLE_ADMIN }
+    - { path: ^/sites, roles: ROLE_ADMIN }

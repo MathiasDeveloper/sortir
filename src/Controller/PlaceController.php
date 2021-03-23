@@ -64,7 +64,7 @@ class PlaceController extends AbstractController
 
             $this->addFlash(
                 'notice',
-                'Lieu créée'
+                'Lieu créé'
             );
 
             return $this->redirectToRoute('place_index');
@@ -93,7 +93,7 @@ class PlaceController extends AbstractController
 
             $this->addFlash(
                 'notice',
-                'Lieu modifiée'
+                'Lieu modifié'
             );
 
             return $this->redirectToRoute('place_index');
