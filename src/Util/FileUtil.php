@@ -4,6 +4,7 @@ namespace App\Util;
 
 use _HumbugBox373c0874430e\Nette\FileNotFoundException;
 use _HumbugBox373c0874430e\Symfony\Component\Console\Exception\InvalidArgumentException;
+use PHPUnit\Util\InvalidDataSetException;
 
 trait FileUtil
 {
@@ -56,6 +57,10 @@ trait FileUtil
                 }
             }
             fclose($handle);
+        }
+
+        if ( $data == NULL ) {
+            throw new InvalidDataSetException("Aucunes données n'a été lue.");
         }
 
         return $data;
