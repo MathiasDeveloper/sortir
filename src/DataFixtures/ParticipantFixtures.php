@@ -25,7 +25,7 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create();
+        $faker = Factory::create('fr_FR');
 
         $slugify = new Slugify();
         $firstname = 'Secret';
@@ -43,8 +43,8 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
         $participant->setPhone($faker->phoneNumber);
         $participant->setEmail($faker->email);
         $participant->setPassword($this->encoder->encodePassword($participant, 'password'));
-        $participant->setAdministrator($faker->boolean());
-        $participant->setActive($faker->boolean());
+        $participant->setAdministrator(1);
+        $participant->setActive(1);
         $participant->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         $participant->setRegistrationDate($faker->dateTimeBetween('-2 week', '-1 day'));
         $participant->setSite($site);
@@ -69,8 +69,8 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
             $participant->setPhone($faker->phoneNumber);
             $participant->setEmail($faker->email);
             $participant->setPassword($this->encoder->encodePassword($participant, 'password'));
-            $participant->setAdministrator(1);
-            $participant->setActive(1);
+            $participant->setAdministrator($faker->boolean(20));
+            $participant->setActive($faker->boolean());
             $participant->setRoles(['ROLE_USER']);
             $participant->setRegistrationDate($faker->dateTimeBetween('-2 week', '-1 day'));
             $participant->setSite($site);
