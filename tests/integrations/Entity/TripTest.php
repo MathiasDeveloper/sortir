@@ -3,7 +3,6 @@
 namespace App\Tests\Integrations\Entity;
 
 use App\Entity\Trip;
-use App\Repository\TripRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
