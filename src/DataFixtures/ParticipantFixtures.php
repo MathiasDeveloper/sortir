@@ -69,8 +69,8 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
             $participant->setPhone($faker->phoneNumber);
             $participant->setEmail($faker->email);
             $participant->setPassword($this->encoder->encodePassword($participant, 'password'));
-            $participant->setAdministrator($faker->boolean());
-            $participant->setActive($faker->boolean());
+            $participant->setAdministrator(1);
+            $participant->setActive(1);
             $participant->setRoles(['ROLE_USER']);
             $participant->setRegistrationDate($faker->dateTimeBetween('-2 week', '-1 day'));
             $participant->setSite($site);

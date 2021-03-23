@@ -1,4 +1,18 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
+{% set array = {
+  'welcome': {
+    'label': 'Accueil',
+    'route': 'welcome',
+  },
+  'trips': {
+    'label': 'Sorties',
+    'route': 'trip',
+  },
+  'cities': {
+    'label': 'Villes',
+    'route': 'city_index',
+  }
+}
+%}
 <nav class="fixed z-50 w-full bg-white shadow">
 	<div class="container-custom-basic">
 		<div class="relative flex justify-between h-16">
@@ -20,21 +34,12 @@
 					<img src="{{ asset('images/logo.svg') }}" alt="" class="object-cover w-12 h-12">
 					<div class="hidden text-3xl font-bold text-red-600 font-montserrat lg:block">sortir.com</div>
 				</a>
-				<div
-					class="hidden sm:ml-6 sm:flex sm:space-x-8">
-					<!-- Current: "border-red-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-					<a href="/" class="inline-flex items-center px-1 pt-1 text-sm  {% if app.request.attributes.get('_route') == 'welcome' %}font-medium text-gray-900 border-b-2 border-red-500{% endif %}">
-						Dashboard
-					</a>
-					<a href="{{ path('trip') }}" class="{% if app.request.attributes.get('_route') == 'trip' %}font-medium text-gray-900 border-b-2 border-red-500{% endif %} inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
-						Trips
-					</a>
-					<a href="#" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
-						Projects
-					</a>
-					<a href="#" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
-						Calendar
-					</a>
+				<div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+					{% for item in array %}
+						<a href="{{ path(item.route) }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 hover:border-gray-300 hover:text-gray-700 {{ app.request.attributes.get('_route') == item.route ? 'border-red-600 text-gray-900' : 'border-transparent text-gray-500' }}">
+							{{ item.label }}
+						</a>
+					{% endfor %}
 				</div>
 			</div>
 			<div
