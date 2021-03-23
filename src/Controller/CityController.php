@@ -76,13 +76,28 @@ class CityController extends AbstractController
     }
 
     /**
-     * @Route("/villes/edit", name="city_edit")
+     * @Route("/villes/edit/{id}", name="city_edit")
      */
-    public function edit(EntityManagerInterface $entityManager, int $id): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
         $city = $entityManager->getRepository(City::class);
         $city = $city->findOneBy(['id' => $id]);
         $form = $this->createForm(CityType::class, $city);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $city = $form->getData();
+
+            $entityManager->persist($city);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Ville modifiée'
+            );
+
+            return $this->redirectToRoute('city_index');
+        }
 
         return $this->render('pages/city/create.html.twig', [
             'form'   => $form->createView(),

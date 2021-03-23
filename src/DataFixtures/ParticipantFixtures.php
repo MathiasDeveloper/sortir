@@ -45,7 +45,7 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
         $participant->setPassword($this->encoder->encodePassword($participant, 'password'));
         $participant->setAdministrator($faker->boolean());
         $participant->setActive($faker->boolean());
-        $participant->setRoles(['ROLE_USER']);
+        $participant->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         $participant->setRegistrationDate($faker->dateTimeBetween('-2 week', '-1 day'));
         $participant->setSite($site);
         $participant->setPhotoUrl("https://eu.ui-avatars.com/api/?name=$name");
