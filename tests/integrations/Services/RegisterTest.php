@@ -9,34 +9,35 @@ use App\Services\Trip\Register;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Doctrine\Persistence\ObjectRepository;
+use PHPUnit\Framework\TestCase;
 
-
-class RegisterTest extends KernelTestCase
+class RegisterTest extends TestCase
 {
+    /**
+     * @var Trip $trip
+     */
+    private $trip;
 
     /**
-     * @var EntityManager
+     * @var Participant $participant
      */
-    private $entityManager;
+    private $participant;
 
     protected function setUp(): void
     {
-        $kernel = self::bootKernel();
-        $this->entityManager = $kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
+        $this->trip = new Trip();
+        $this->participant = new Participant();
     }
 
     public function testRegister(): void
     {
-        /** @var Trip $trip */
-        $trip = $this->entityManager->getRepository(Trip::class)->find(1);
-        /** @var Participant $participant */
-        $participant = $this->entityManager->getRepository(Participant::class)->find(2);
+        $participantRepository = $this->createMock(ObjectRepository::class);
+        $participantRepository->expects($this->any())->method('find')->willReturn($this->participant);
+        $tripRepository = $this->createMock(ObjectRepository::class);
+        $tripRepository->expects($this->any())->method('find')->willReturn($this->trip);
         try {
-            Register::subscribe($participant, $trip);
-            $this->entityManager->flush();
+            Register::subscribe($this->participant, $this->trip);
         } catch (OptimisticLockException $e) {
             $e->getMessage();
         } catch (ORMException $e) {
@@ -44,6 +45,6 @@ class RegisterTest extends KernelTestCase
         } catch (InvalidArgumentException $e) {
             $e->getMessage();
         }
-        $this->assertTrue(in_array($trip, $participant->getSubscriptions()->getValues()));
+        $this->assertTrue(in_array($this->trip, $this->participant->getSubscriptions()->getValues()));
     }
 }

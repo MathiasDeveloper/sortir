@@ -3,12 +3,12 @@
 namespace App\Tests\Integrations\Entity;
 
 use App\Entity\Trip;
+use App\Repository\TripRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class TripTest extends KernelTestCase
 {
-
     /**
      * @var EntityManagerInterface $entityManager
      */
@@ -22,7 +22,7 @@ class TripTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $$this->entityManager->getRepository();
+        $this->entityManager->getRepository(Trip::class);
     }
 
     public function testIsArchived(): void
