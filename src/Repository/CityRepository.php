@@ -11,12 +11,35 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  * @method City|null findOneBy(array $criteria, array $orderBy = null)
  * @method City[]    findAll()
  * @method City[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method findLikeByName
  */
 class CityRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, City::class);
+    }
+
+    public function orderByName()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findLikeByName($like)
+    {
+        $qb = $this->createQueryBuilder('t');
+
+        $qb->andWhere($qb->expr()->like('t.name', ':name'))
+            ->setParameter('name', '%'.$like.'%');
+
+        $query = $qb->getQuery()
+            ->getResult();
+
+        return $query;
     }
 
     // /**

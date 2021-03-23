@@ -1,4 +1,22 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
+{% set array = {
+  'welcome': {
+    'label': 'Accueil',
+    'route': 'welcome',
+  },
+  'trips': {
+    'label': 'Sorties',
+    'route': 'trip',
+  },
+  'cities': {
+    'label': 'Villes',
+    'route': 'city_index',
+  },
+  'places': {
+    'label': 'Lieux',
+    'route': 'place_index',
+  }
+}
+%}
 <nav class="fixed z-50 w-full bg-white shadow">
 	<div class="container-custom-basic">
 		<div class="relative flex justify-between h-16">
@@ -20,21 +38,12 @@
 					<img src="{{ asset('images/logo.svg') }}" alt="" class="object-cover w-12 h-12">
 					<div class="hidden text-3xl font-bold text-red-600 font-montserrat lg:block">sortir.com</div>
 				</a>
-				<div
-					class="hidden sm:ml-6 sm:flex sm:space-x-8">
-					<!-- Current: "border-red-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-					<a href="/" class="inline-flex items-center px-1 pt-1 text-sm  {% if app.request.attributes.get('_route') == 'welcome' %}font-medium text-gray-900 border-b-2 border-red-500{% endif %}">
-						Dashboard
-					</a>
-					<a href="{{ path('trip') }}" class="{% if app.request.attributes.get('_route') == 'trip' %}font-medium text-gray-900 border-b-2 border-red-500{% endif %} inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
-						Trips
-					</a>
-					<a href="#" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
-						Projects
-					</a>
-					<a href="#" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
-						Calendar
-					</a>
+				<div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+					{% for item in array %}
+						<a href="{{ path(item.route) }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 hover:border-gray-300 hover:text-gray-700 {{ app.request.attributes.get('_route') == item.route ? 'border-red-600 text-gray-900' : 'border-transparent text-gray-500' }}">
+							{{ item.label }}
+						</a>
+					{% endfor %}
 				</div>
 			</div>
 			<div
@@ -75,13 +84,12 @@
 
 	<!-- Mobile menu, show/hide based on menu state. -->
 	<div class="hidden" id="mobile-menu">
-		<div
-			class="pt-2 pb-4 space-y-1">
-			<!-- Current: "bg-red-50 border-red-500 text-red-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
-			<a href="#" class="block py-2 pl-3 pr-4 text-base font-medium text-red-700 border-l-4 border-red-500 bg-red-50">Dashboard</a>
-			<a href="#" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700">Team</a>
-			<a href="#" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700">Projects</a>
-			<a href="#" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700">Calendar</a>
+		<div class="pt-2 pb-4 space-y-1">
+			{% for item in array %}
+				<a href="{{ path(item.route) }}" class="block py-2 pl-3 pr-4 text-base font-medium border-l-4 {{ app.request.attributes.get('_route') == item.route ? 'border-red-500 text-red-700 bg-red-50' : 'border-transparent text-gray-500' }}">
+					{{ item.label }}
+				</a>
+			{% endfor %}
 		</div>
 	</div>
 </nav>

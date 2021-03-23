@@ -1,0 +1,86 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}
+	Villes
+{% endblock %}
+
+{% block body %}
+	<div class="container-custom">
+		<div class="max-w-xl">
+			{{ form_start(form) }}
+			<div>
+				{{ form_errors(form) }}
+			</div>
+			<div class="space-y-8 divide-y divide-gray-200">
+				<div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+					<div>
+						<div class="mb-5">
+							<h3 class="text-lg font-medium text-red-600 font-montserratleading-6">
+								Créer
+							</h3>
+							<p class="max-w-2xl mt-1 text-sm text-gray-500">
+								Un nouveau lieu
+							</p>
+						</div>
+						<div class="space-y-6 sm:space-y-5">
+							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+									{{ form_label(form.name) }}
+									{{ form_errors(form.name) }}
+								</label>
+								<div class="mt-1 sm:mt-0 sm:col-span-2">
+									{{ form_widget(form.name) }}
+								</div>
+							</div>
+							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+									{{ form_label(form.street) }}
+									{{ form_errors(form.street) }}
+								</label>
+								<div class="mt-1 sm:mt-0 sm:col-span-2">
+									{{ form_widget(form.street) }}
+								</div>
+							</div>
+							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+									{{ form_label(form.lat) }}
+									{{ form_errors(form.lat) }}
+								</label>
+								<div class="mt-1 sm:mt-0 sm:col-span-2">
+									{{ form_widget(form.lat) }}
+								</div>
+							</div>
+							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+									{{ form_label(form.lon) }}
+									{{ form_errors(form.lon) }}
+								</label>
+								<div class="mt-1 sm:mt-0 sm:col-span-2">
+									{{ form_widget(form.lon) }}
+								</div>
+							</div>
+							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+									{{ form_label(form.city) }}
+									{{ form_errors(form.city) }}
+								</label>
+								<div class="mt-1 sm:mt-0 sm:col-span-2">
+									{{ form_widget(form.city) }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="pt-5">
+					<div class="flex justify-end">
+						<button type="submit" class="inline-flex justify-center px-4 py-2 ml-3 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+							Valider
+						</button>
+					</div>
+				</div>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}
