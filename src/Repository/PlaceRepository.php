@@ -19,6 +19,19 @@ class PlaceRepository extends ServiceEntityRepository
         parent::__construct($registry, Place::class);
     }
 
+    public function findLikeByName($like)
+    {
+        $qb = $this->createQueryBuilder('t');
+
+        $qb->andWhere($qb->expr()->like('t.name', ':name'))
+            ->setParameter('name', '%'.$like.'%');
+
+        $query = $qb->getQuery()
+            ->getResult();
+
+        return $query;
+    }
+
     // /**
     //  * @return Place[] Returns an array of Place objects
     //  */

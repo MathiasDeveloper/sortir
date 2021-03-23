@@ -20,6 +20,15 @@ class CityRepository extends ServiceEntityRepository
         parent::__construct($registry, City::class);
     }
 
+    public function orderByName()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findLikeByName($like)
     {
         $qb = $this->createQueryBuilder('t');
