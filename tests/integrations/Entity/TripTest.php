@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class TripTest extends KernelTestCase
 {
-
     /**
      * @var EntityManagerInterface $entityManager
      */
@@ -22,7 +21,7 @@ class TripTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $$this->entityManager->getRepository();
+        $this->entityManager->getRepository(Trip::class);
     }
 
     public function testIsArchived(): void
