@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="grid grid-cols-2">
+	<div class="lg:grid lg:grid-cols-2">
 		<div class="mb-8 container-custom">
 			<div class="mb-8">
 				<div class="mb-6 text-3xl font-semibold text-red-600 font-montserrat">
@@ -95,6 +95,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="h-full bg-fixed bg-center bg-no-repeat bg-cover" style="background-image: url({{ asset('images/city.webp') }});"></div>
+		<div class="hidden h-full bg-fixed bg-center bg-no-repeat bg-cover lg:block" style="background-image: url({{ asset('images/city.webp') }});"></div>
 	</div>
 {% endblock %}
