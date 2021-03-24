@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CityController extends AbstractController
 {
     /**
-     * @Route("/villes", name="city_index")
+     * @Route("/admin/villes", name="city_index")
      */
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -49,7 +49,7 @@ class CityController extends AbstractController
     }
 
     /**
-     * @Route("/villes/create", name="city_create")
+     * @Route("/admin/villes/create", name="city_create")
      */
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -76,7 +76,7 @@ class CityController extends AbstractController
     }
 
     /**
-     * @Route("/villes/edit/{id}", name="city_edit")
+     * @Route("/admin/villes/edit/{id}", name="city_edit")
      */
     public function edit(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
@@ -105,7 +105,7 @@ class CityController extends AbstractController
     }
 
     /**
-     * @Route("/villes/delete/{id}", name="city_delete")
+     * @Route("/admin/villes/delete/{id}", name="city_delete")
      */
     public function delete(EntityManagerInterface $entityManager, int $id): Response
     {

@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SiteController extends AbstractController
 {
     /**
-     * @Route("/sites", name="site_index")
+     * @Route("/admin/sites", name="site_index")
      */
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -49,7 +49,7 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/sites/create", name="site_create")
+     * @Route("/admin/sites/create", name="site_create")
      */
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -76,7 +76,7 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/sites/edit/{id}", name="site_edit")
+     * @Route("/admin/sites/edit/{id}", name="site_edit")
      */
     public function edit(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
@@ -105,7 +105,7 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/sites/delete/{id}", name="site_delete")
+     * @Route("/admin/sites/delete/{id}", name="site_delete")
      */
     public function delete(EntityManagerInterface $entityManager, int $id): Response
     {
