@@ -70,6 +70,7 @@ class Trip
 
     /**
      * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="trips")
+     * @ORM\JoinColumn(name="organisor_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     private $organisor;
 
@@ -82,6 +83,7 @@ class Trip
 
     /**
      * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="participants")
+     * @ORM\JoinColumn(name="site_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     private $site;
 

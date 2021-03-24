@@ -29,7 +29,7 @@ class Site
     private $participants;
 
     /**
-     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="place")
+     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="site")
      */
     private $trips;
 
