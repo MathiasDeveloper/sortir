@@ -15,4 +15,12 @@ class NavigationController extends AbstractController
     {
         return $this->render('pages/index.html.twig');
     }
+
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function admin(): Response
+    {
+        return $this->render('pages/admin.html.twig');
+    }
 }
