@@ -3,23 +3,45 @@
 namespace App\Util;
 
 use App\Entity\Participant;
+use App\Exception\Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class ImportUser
+ * @package App\Util
+ */
 class ImportUser
 {
     use FileUtil;
 
+    /**
+     * @var array|null
+     */
     public ?array $data;
 
+
+    /**
+     * ImportUser constructor.
+     * @param $filePath
+     */
     public function __construct($filePath)
     {
-        if ($this->exist($filePath) && $this->isValid($filePath) && $this->hasValidParticipantHeader($filePath)) {
+        try {
+            $this->exist($filePath);
+            $this->isValid($filePath);
+            $this->hasValidParticipantHeader($filePath);
             $this->data = $this->readCsvToArray($filePath);
-        } else {
-            $this->data = null;
+        } catch (Exception $exception) {
+            Logger::getInstance()->error($exception->getMessage());
         }
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function import(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();

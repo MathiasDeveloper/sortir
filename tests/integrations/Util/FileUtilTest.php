@@ -1,10 +1,12 @@
 <?php
 
+namespace App\Tests\Integrations\Util;
+
 use App\Util\FileUtil;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Util\InvalidDataSetException;
 
-class fileUtilTest extends TestCase
+class FileUtilTest extends TestCase
 {
     use FileUtil;
 
@@ -42,13 +44,13 @@ class fileUtilTest extends TestCase
     public function testHasValidHeader()
     {
         $obj = $this->getObjectForTrait(FileUtil::class);
-        assertTrue($obj->exist(__DIR__ . '/../../fixtures/csv/valid_participant.csv'));
+        $this->assertTrue($obj->exist(__DIR__ . '/../../fixtures/csv/valid_participant.csv'));
     }
 
     public function testHasNotValidHeader()
     {
         $obj = $this->getObjectForTrait(FileUtil::class);
-        assertTrue($obj->exist(__DIR__ . '/../../fixtures/csv/not_valid_header_participant.csv'));
+        $this->assertTrue($obj->exist(__DIR__ . '/../../fixtures/csv/not_valid_header_participant.csv'));
     }
 
 
