@@ -83,23 +83,23 @@
       </trans-unit>
       <trans-unit id="CsPSyzA" resname="Se connecter">
         <source>Se connecter</source>
-        <target>__Se connecter</target>
+        <target>Se connecter</target>
       </trans-unit>
       <trans-unit id="GiMD7eB" resname="Connect">
         <source>Connect</source>
-        <target>__Connect</target>
+        <target>Se connecter</target>
       </trans-unit>
       <trans-unit id="MJ3qDEJ" resname="Forgot password ?">
         <source>Forgot password ?</source>
-        <target>__Forgot password ?</target>
+        <target>mot de passe oublié ?</target>
       </trans-unit>
       <trans-unit id=".f1B3nr" resname="Forgot Password">
         <source>Forgot Password</source>
-        <target>__Forgot Password</target>
+        <target>mot de passe oublié</target>
       </trans-unit>
       <trans-unit id="FG02QbY" resname="Write your mail adress we send you link for reset password">
         <source>Write your mail adress we send you link for reset password</source>
-        <target>__Write your mail adress we send you link for reset password</target>
+        <target>Ecrivez votre adresse mail pour recevoir un lien de rénitialisation de mot de passe</target>
       </trans-unit>
     </body>
   </file>
