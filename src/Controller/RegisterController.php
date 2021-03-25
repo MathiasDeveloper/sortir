@@ -21,25 +21,25 @@ class RegisterController extends AbstractController
     /**
      * @Route("/register", name="registerTrip", methods={"GET"})
      *
-     * @param Request                $request
+     * @param Request $request
      * @param EntityManagerInterface $entityManager
      *
-     * @throws InvalidArgumentException
+     * @return Response
      * @throws Exception
      *
-     * @return Response
+     * @throws InvalidArgumentException
      */
     public function register(Request $request, EntityManagerInterface $entityManager): Response
     {
-        if (! $this->getUser()) {
+        if (!$this->getUser()) {
             return $this->redirectToRoute('/');
         }
 
-        if (! ($id = $request->query->get('id'))) {
+        if (!($id = $request->query->get('id'))) {
             throw new InvalidParameterException(sprintf('%s not exist', $id));
         }
 
-        if (! ($idTrip = $request->query->get('id_trip'))) {
+        if (!($idTrip = $request->query->get('id_trip'))) {
             throw new InvalidParameterException(sprintf('%s not exist', $idTrip));
         }
 
@@ -59,25 +59,25 @@ class RegisterController extends AbstractController
     /**
      * @Route("/unsubscribe", name="unsubscribeTrip", methods={"GET"})
      *
-     * @param Request                $request
+     * @param Request $request
      * @param EntityManagerInterface $entityManager
      *
-     * @throws InvalidArgumentException
+     * @return Response
      * @throws Exception
      *
-     * @return Response
+     * @throws InvalidArgumentException
      */
     public function unsubscribe(Request $request, EntityManagerInterface $entityManager): Response
     {
-        if (! $this->getUser()) {
+        if (!$this->getUser()) {
             return $this->redirectToRoute('/');
         }
 
-        if (! ($id = $request->query->get('id'))) {
+        if (!($id = $request->query->get('id'))) {
             throw new InvalidParameterException(sprintf('%s not exist', $id));
         }
 
-        if (! ($idTrip = $request->query->get('id_trip'))) {
+        if (!($idTrip = $request->query->get('id_trip'))) {
             throw new InvalidParameterException(sprintf('%s not exist', $idTrip));
         }
 
@@ -97,13 +97,12 @@ class RegisterController extends AbstractController
     /**
      * @param Trip $trip
      *
+     * @return bool
      * @throws Exception
      *
-     * @return bool
      */
     public function tripValidForRegistry(Trip $trip): bool
     {
-        return $trip->getState() !== StateTypeEnum::getAvailableTypes()[1] && new DateTime('now') < $trip->getEndDate(
-            );
+        return $trip->getState() !== StateTypeEnum::getAvailableTypes()[1] && new DateTime('now') < $trip->getEndDate();
     }
 }

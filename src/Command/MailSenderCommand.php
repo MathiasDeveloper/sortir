@@ -7,6 +7,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Class MailSenderCommand
+ * @package App\Command
+ *
+ * Use this class for send mail test
+ */
 class MailSenderCommand extends Command
 {
     protected static $defaultName = 'test:mail-sender';

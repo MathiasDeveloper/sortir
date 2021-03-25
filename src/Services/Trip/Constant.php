@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Trip\Constant;
+namespace App\Services\Trip;
 
 /**
  * Class Constant
