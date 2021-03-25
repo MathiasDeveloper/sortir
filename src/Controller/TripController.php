@@ -9,7 +9,7 @@ use App\Form\TripForm;
 use App\Form\TripsType;
 use App\Entity\Participant;
 use App\Enums\StateTypeEnum;
-use App\Trip\Constant\Constant;
+use App\Services\Trip\Constant;
 use DateTime;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
