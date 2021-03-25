@@ -31,6 +31,19 @@ class SiteRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findLikeByName($like)
+    {
+        $qb = $this->createQueryBuilder('t');
+
+        $qb->andWhere($qb->expr()->like('t.name', ':name'))
+            ->setParameter('name', '%'.$like.'%');
+
+        $query = $qb->getQuery()
+            ->getResult();
+
+        return $query;
+    }
+
     // /**
     //  * @return Site[] Returns an array of Site objects
     //  */

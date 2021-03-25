@@ -109,19 +109,19 @@
 									<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
 										Date de la sortie
 									</th>
-									<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+									<th scope="col" class="hidden px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase lg:table-cell">
 										Clôture
 									</th>
-									<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+									<th scope="col" class="hidden px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase lg:table-cell">
 										inscrits/places
 									</th>
-									<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+									<th scope="col" class="hidden px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase lg:table-cell">
 										Etat
 									</th>
-									<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+									<th scope="col" class="hidden px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase lg:table-cell">
 										Inscrit
 									</th>
-									<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+									<th scope="col" class="hidden px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase lg:table-cell">
 										Organisateur
 									</th>
 									<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -150,21 +150,21 @@
 										<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
 											{{ trip.beginDate|date("d/m/Y") }}
 										</td>
-										<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+										<td class="hidden px-6 py-4 text-sm text-gray-500 lg:table-cell whitespace-nowrap">
 											{{ trip.endDate|date("d/m/Y") }}
 										</td>
-										<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+										<td class="hidden px-6 py-4 text-sm text-gray-500 lg:table-cell whitespace-nowrap">
 											{{ trip.subscriptions.count }}/{{ trip.maxSubscriptions }}
 										</td>
-										<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+										<td class="hidden px-6 py-4 text-sm text-gray-500 lg:table-cell whitespace-nowrap">
 											{{ trip.state }}
 										</td>
-										<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+										<td class="hidden px-6 py-4 text-sm text-gray-500 lg:table-cell whitespace-nowrap">
 											{% if subscribe %}
 												X
 											{% endif %}
 										</td>
-										<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+										<td class="hidden px-6 py-4 text-sm text-gray-500 lg:table-cell whitespace-nowrap">
 											<a href="{{ path('profile_show', { id: trip.organisor.id }) }}" class="border-b border-gray-300">
 												{{ trip.organisor.username }}
 											</a>

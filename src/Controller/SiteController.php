@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\City;
-use App\Form\CityType;
+use App\Entity\Site;
+use App\Form\SiteType;
 use App\Form\CitiesType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,107 +14,107 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SiteController extends AbstractController
 {
     /**
-     * @Route("/villes", name="city_index")
+     * @Route("/admin/sites", name="site_index")
      */
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $cities = $entityManager->getRepository(City::class);
-        $cities = $cities->findAll();
+        $sites = $entityManager->getRepository(Site::class);
+        $sites = $sites->findAll();
         $form = $this->createForm(CitiesType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $cityRepo = $entityManager->getRepository(City::class);
+            $siteRepo = $entityManager->getRepository(Site::class);
             if ($form->get('submit')->isClicked()) {
                 $search = $form->getData();
 
                 $like = $search['search'];
                 $like = trim($like);
-                $cities = $cityRepo->findLikeByName($like);
+                $sites = $siteRepo->findLikeByName($like);
             }
             if ($form->get('reset')->isClicked()) {
-                $cities = $cityRepo->findAll();
+                $sites = $siteRepo->findAll();
             }
 
-            return $this->render('pages/city/index.html.twig', [
-                'cities' => $cities,
+            return $this->render('pages/site/index.html.twig', [
+                'sites'  => $sites,
                 'form'   => $form->createView(),
             ]);
         }
 
-        return $this->render('pages/city/index.html.twig', [
-            'cities' => $cities,
+        return $this->render('pages/site/index.html.twig', [
+            'sites'  => $sites,
             'form'   => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/villes/create", name="city_create")
+     * @Route("/admin/sites/create", name="site_create")
      */
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CityType::class);
+        $form = $this->createForm(SiteType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $city = $form->getData();
+            $site = $form->getData();
 
-            $entityManager->persist($city);
+            $entityManager->persist($site);
             $entityManager->flush();
 
             $this->addFlash(
                 'notice',
-                'Ville créée'
+                'Site créé'
             );
 
-            return $this->redirectToRoute('city_index');
+            return $this->redirectToRoute('site_index');
         }
 
-        return $this->render('pages/city/create.html.twig', [
+        return $this->render('pages/site/create.html.twig', [
             'form'   => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/villes/edit/{id}", name="city_edit")
+     * @Route("/admin/sites/edit/{id}", name="site_edit")
      */
     public function edit(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
-        $city = $entityManager->getRepository(City::class);
-        $city = $city->findOneBy(['id' => $id]);
-        $form = $this->createForm(CityType::class, $city);
+        $site = $entityManager->getRepository(Site::class);
+        $site = $site->findOneBy(['id' => $id]);
+        $form = $this->createForm(SiteType::class, $site);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $city = $form->getData();
+            $site = $form->getData();
 
-            $entityManager->persist($city);
+            $entityManager->persist($site);
             $entityManager->flush();
 
             $this->addFlash(
                 'notice',
-                'Ville modifiée'
+                'Site modifié'
             );
 
-            return $this->redirectToRoute('city_index');
+            return $this->redirectToRoute('site_index');
         }
 
-        return $this->render('pages/city/create.html.twig', [
+        return $this->render('pages/site/create.html.twig', [
             'form'   => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/villes/delete/{id}", name="city_delete")
+     * @Route("/admin/sites/delete/{id}", name="site_delete")
      */
     public function delete(EntityManagerInterface $entityManager, int $id): Response
     {
-        $city = $entityManager->getRepository(City::class);
-        $city = $city->findOneBy(['id' => $id]);
+        $site = $entityManager->getRepository(Site::class);
+        $site = $site->findOneBy(['id' => $id]);
 
-        $entityManager->remove($city);
+        $entityManager->remove($site);
         $entityManager->flush();
 
-        return $this->redirectToRoute('city_index');
+        return $this->redirectToRoute('site_index');
     }
 }

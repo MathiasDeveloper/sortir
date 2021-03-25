@@ -73,6 +73,7 @@ class Participant implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="participants")
+     * @ORM\JoinColumn(name="site_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     private $site;
 
@@ -82,7 +83,7 @@ class Participant implements UserInterface
     private $subscriptions;
 
     /**
-     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="organisor")
+     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="organisor", orphanRemoval=true)
      */
     private $trips;
 

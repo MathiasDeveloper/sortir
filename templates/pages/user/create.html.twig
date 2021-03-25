@@ -1,8 +1,9 @@
 {% extends 'layouts/admin.html.twig' %}
 
 {% block title %}
-	Villes
+	Admin
 {% endblock %}
+
 
 {% block body %}
 	<div class="min-h-screen px-2 mx-auto mb-8 pt-36 max-w-8xl sm:px-6 lg:px-8">
@@ -19,53 +20,70 @@
 								Créer
 							</h3>
 							<p class="max-w-2xl mt-1 text-sm text-gray-500">
-								Un nouveau lieu
+								Un nouve utilisateur
 							</p>
 						</div>
 						<div class="space-y-6 sm:space-y-5">
 							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
 								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-									{{ form_label(form.name) }}
-									{{ form_errors(form.name) }}
+									{{ form_label(form.site) }}
 								</label>
 								<div class="mt-1 sm:mt-0 sm:col-span-2">
-									{{ form_widget(form.name) }}
+									{{ form_widget(form.site) }}
 								</div>
 							</div>
+
 							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
 								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-									{{ form_label(form.street) }}
-									{{ form_errors(form.street) }}
+									{{ form_label(form.email) }}
 								</label>
 								<div class="mt-1 sm:mt-0 sm:col-span-2">
-									{{ form_widget(form.street) }}
+									{{ form_widget(form.email) }}
 								</div>
 							</div>
+
 							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
 								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-									{{ form_label(form.lat) }}
-									{{ form_errors(form.lat) }}
+									{{ form_label(form.username) }}
 								</label>
 								<div class="mt-1 sm:mt-0 sm:col-span-2">
-									{{ form_widget(form.lat) }}
+									{{ form_widget(form.username) }}
 								</div>
 							</div>
+
 							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
 								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-									{{ form_label(form.lon) }}
-									{{ form_errors(form.lon) }}
+									{{ form_label(form.firstname) }}
 								</label>
 								<div class="mt-1 sm:mt-0 sm:col-span-2">
-									{{ form_widget(form.lon) }}
+									{{ form_widget(form.firstname) }}
 								</div>
 							</div>
+
 							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
 								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-									{{ form_label(form.city) }}
-									{{ form_errors(form.city) }}
+									{{ form_label(form.lastname) }}
 								</label>
 								<div class="mt-1 sm:mt-0 sm:col-span-2">
-									{{ form_widget(form.city) }}
+									{{ form_widget(form.lastname) }}
+								</div>
+							</div>
+
+							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+									{{ form_label(form.password.first) }}
+								</label>
+								<div class="mt-1 sm:mt-0 sm:col-span-2">
+									{{ form_widget(form.password.first) }}
+								</div>
+							</div>
+
+							<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+								<label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+									{{ form_label(form.password.second) }}
+								</label>
+								<div class="mt-1 sm:mt-0 sm:col-span-2">
+									{{ form_widget(form.password.second) }}
 								</div>
 							</div>
 						</div>
