@@ -8,10 +8,10 @@ namespace App\Trip\Constant;
  */
 class Constant
 {
-    const TYPE_CREATED = 0;
-    const TYPE_OPENED = 1;
-    const TYPE_CLOSED = 2;
-    const TYPE_ONGOING = 3;
-    const TYPE_ENDED = 4;
-    const TYPE_CANCELED = 5;
+    public const TYPE_CREATED = 0;
+    public const TYPE_OPENED = 1;
+    public const TYPE_CLOSED = 2;
+    public const TYPE_ONGOING = 3;
+    public const TYPE_ENDED = 4;
+    public const TYPE_CANCELED = 5;
 }
