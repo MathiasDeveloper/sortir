@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Util;
+namespace App\Traits;
 
-use _HumbugBox373c0874430e\Nette\FileNotFoundException;
-use _HumbugBox373c0874430e\Symfony\Component\Console\Exception\InvalidArgumentException;
-use PHPUnit\Util\InvalidDataSetException;
+
 use App\Exception\Util;
 
-trait FileUtil
+trait Readerer
 {
     /**
      * @param $filename

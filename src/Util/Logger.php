@@ -10,12 +10,32 @@ use Psr\Log\LoggerInterface;
  */
 class Logger implements LoggerInterface
 {
-    private static $instance;
+    /**
+     * @var Logger $instance
+     */
+    private static Logger $instance;
 
+    /**
+     * @var LoggerInterface $logger
+     */
+    private static LoggerInterface $logger;
+
+    /**
+     * Logger constructor.
+     * @param LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger)
+    {
+        self::$logger = $logger;
+    }
+
+    /**
+     * @return Logger
+     */
     public static function getInstance()
     {
         if (null === self::$instance) {
-            self::$instance = new Logger();
+            self::$instance = new Logger(self::$logger);
         }
         return self::$instance;
     }
@@ -25,7 +45,7 @@ class Logger implements LoggerInterface
      */
     public function emergency($message, array $context = array())
     {
-        // TODO: Implement emergency() method.
+        self::getInstance()->emergency($message, $context);
     }
 
     /**
@@ -33,7 +53,7 @@ class Logger implements LoggerInterface
      */
     public function alert($message, array $context = array())
     {
-        // TODO: Implement alert() method.
+        self::getInstance()->alert($message, $context);
     }
 
     /**
@@ -41,7 +61,7 @@ class Logger implements LoggerInterface
      */
     public function critical($message, array $context = array())
     {
-        // TODO: Implement critical() method.
+        self::getInstance()->critical($message, $context);
     }
 
     /**
@@ -49,7 +69,7 @@ class Logger implements LoggerInterface
      */
     public function error($message, array $context = array())
     {
-        // TODO: Implement error() method.
+        self::getInstance()->error($message, $context);
     }
 
     /**
@@ -57,7 +77,7 @@ class Logger implements LoggerInterface
      */
     public function warning($message, array $context = array())
     {
-        // TODO: Implement warning() method.
+        self::getInstance()->warning($message, $context);
     }
 
     /**
@@ -65,7 +85,7 @@ class Logger implements LoggerInterface
      */
     public function notice($message, array $context = array())
     {
-        // TODO: Implement notice() method.
+        self::getInstance()->notice($message, $context);
     }
 
     /**
@@ -73,7 +93,7 @@ class Logger implements LoggerInterface
      */
     public function info($message, array $context = array())
     {
-        // TODO: Implement info() method.
+        self::getInstance()->info($message, $context);
     }
 
     /**
@@ -81,7 +101,7 @@ class Logger implements LoggerInterface
      */
     public function debug($message, array $context = array())
     {
-        // TODO: Implement debug() method.
+        self::getInstance()->debug($message, $context);
     }
 
     /**
@@ -89,6 +109,6 @@ class Logger implements LoggerInterface
      */
     public function log($level, $message, array $context = array())
     {
-        // TODO: Implement log() method.
+        self::getInstance()->log($message, $context);
     }
 }

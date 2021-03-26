@@ -4,6 +4,9 @@ namespace App\Util;
 
 use App\Entity\Participant;
 use App\Exception\Exception;
+use App\Traits\Readerer;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,7 +17,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ImportUser
 {
-    use FileUtil;
+    use Readerer;
+
 
     /**
      * @var array|null
@@ -41,10 +45,10 @@ class ImportUser
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @param EntityManagerInterface $entityManager
      */
-    protected function import(InputInterface $input, OutputInterface $output)
+    protected function import(InputInterface $input, OutputInterface $output, EntityManagerInterface $entityManager)
     {
-        $em = $this->getContainer()->get('doctrine')->getManager();
 
         foreach ($this->data as $row) {
             $participant = new Participant();
@@ -60,10 +64,8 @@ class ImportUser
             $participant->setRegistrationDate($row['date_registration']);
             $participant->setSite($row['site']);
 
-            $em->persist($participant);
+            $entityManager->persist($participant);
         }
-
-        $em->flush();
-        $em->clear();
+        $entityManager->flush();
     }
 }
