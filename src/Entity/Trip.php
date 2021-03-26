@@ -82,7 +82,7 @@ class Trip
     private $state_raw;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="participants")
+     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="trips")
      * @ORM\JoinColumn(name="site_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     private $site;
