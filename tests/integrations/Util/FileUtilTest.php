@@ -4,7 +4,6 @@ namespace App\Tests\Integrations\Util;
 
 use App\Util\FileUtil;
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Util\InvalidDataSetException;
 
 class FileUtilTest extends TestCase
 {
@@ -18,20 +17,20 @@ class FileUtilTest extends TestCase
     public function testIsValid()
     {
         $obj = $this->getObjectForTrait(FileUtil::class);
+
         assertTrue($obj->exist(__DIR__ . '/../../fixtures/csv/valid_participant.csv'));
+    }
+
+    public function testIsNotValidNByNotFile()
+    {
     }
 
     public function testIsNotValidNByNotReadable()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->getObjectForTrait(FileUtil::class)
-            ->exist(__DIR__ . '/../../fixtures/csv/not_valid_by_corrupt.csv');
     }
 
     public function testShouldExist()
     {
-        $obj = $this->getObjectForTrait(FileUtil::class);
-        assertTrue($obj->exist(__DIR__ . '/../../fixtures/csv/valid_participant.csv'));
     }
 
     public function testShouldNotExist()
@@ -56,14 +55,9 @@ class FileUtilTest extends TestCase
 
     public function testReadCsvToArray()
     {
-        $obj = $this->getObjectForTrait(FileUtil::class);
-        $obj->readCsvToArray(__DIR__ . '/../../fixtures/csv/valid_participant.csv');
     }
 
     public function testReadEmptyCsvToArray()
     {
-        $this->expectException(InvalidDataSetException::class);
-        $this->getObjectForTrait(FileUtil::class)
-            ->readCsvToArray(__DIR__ . '/../../fixtures/csv/not_valid_by_empty.csv');
     }
 }
