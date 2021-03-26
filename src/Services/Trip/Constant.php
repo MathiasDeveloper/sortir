@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Trip\Constant;
+namespace App\Services\Trip;
 
 /**
  * Class Constant
- * @package App\Trip\Constant
+ * @package App\Service\Trip
  */
 class Constant
 {

@@ -26,6 +26,6 @@
         "@tailwindcss/forms": "^0.2.1",
         "@tailwindcss/typography": "^0.4.0",
         "jquery": "^3.6.0",
-        "maildev": "^1.1.0"
+        "maildev": "^0.5.1"
     }
 }
