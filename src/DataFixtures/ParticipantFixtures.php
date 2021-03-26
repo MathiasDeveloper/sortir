@@ -51,6 +51,29 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
         $participant->setPhotoUrl("https://eu.ui-avatars.com/api/?name=$name");
         $manager->persist($participant);
 
+        $firstname = 'Public';
+        $lastname = 'Party';
+        $name = $slugify->slugify("$firstname $lastname");
+
+        $sites = $this->entityManager->getRepository(Site::class)->findAll();
+        shuffle($sites);
+        $site = $sites[0];
+
+        $participant = new Participant();
+        $participant->setUsername($name);
+        $participant->setLastname($lastname);
+        $participant->setFirstname($firstname);
+        $participant->setPhone($faker->phoneNumber);
+        $participant->setEmail($faker->email);
+        $participant->setPassword($this->encoder->encodePassword($participant, 'password'));
+        $participant->setAdministrator(0);
+        $participant->setActive(1);
+        $participant->setRoles(['ROLE_USER']);
+        $participant->setRegistrationDate($faker->dateTimeBetween('-2 week', '-1 day'));
+        $participant->setSite($site);
+        $participant->setPhotoUrl("https://eu.ui-avatars.com/api/?name=$name");
+        $manager->persist($participant);
+
         // PARTICIPANTS
         for ($i = 0; $i < 20; $i++) {
             $slugify = new Slugify();
