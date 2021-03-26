@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Exception;
+namespace App\Exceptions\Trip;
 
-use Exception;
+use App\Exceptions\Exception;
 
 /**
  * Class InvalidArgumentException

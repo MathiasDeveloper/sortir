@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Exception\Util;
+namespace App\Exceptions\Util;
 
-use App\Exception\Exception;
+use App\Exceptions\Exception;
 
 /**
  * Class FileNotFoundException
