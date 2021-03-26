@@ -28,7 +28,6 @@ Encore
    */
   .addEntry("app", "./assets/app.js")
 
-
   // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
   .splitEntryChunks()
 
@@ -82,7 +81,10 @@ Encore
 if (Encore.isProduction()) {
   Encore.addPlugin(
     new PurgeCssPlugin({
-      paths: glob.sync([path.join(__dirname, "templates/**/*.html.twig")]),
+      paths: glob.sync([
+        path.join(__dirname, "templates/**/*.html.twig"),
+        path.join(__dirname, "src/**/*.php"),
+      ]),
       defaultExtractor: (content) => {
         return content.match(/[\w-/:]+(?<!:)/g) || [];
       },
